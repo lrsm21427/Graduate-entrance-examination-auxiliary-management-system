@@ -1,0 +1,48 @@
+<!--中国地图-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ECharts</title>
+  <!-- 引入刚刚下载的 ECharts 文件 -->
+  <script src="../../js/echarts.js"></script>
+  <script src="../../map/china.js"></script>
+<!--  <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.0&type=webgl&ak=X3SV80pLT7rGUfyIFoBs81kTXpPwYsj0"></script>-->
+
+</head>
+<body>
+<div id="mainMap" style="width:600px;height: 500px"></div>
+<script type="text/javascript">
+  var myMap=echarts.init(document.getElementById('mainMap'));
+  var myData = []; //地图data数据
+  var city=null;
+  var option={
+    title: {
+      text: '在中国地图中选定相关省份',
+      textAlign: 'center',
+      left: '50%',
+      top: '10px',
+      textStyle: {
+        fontSize: 20,
+        fontWeight: 'bold'
+      }
+    },
+    series:[{
+      type:'map',
+      map:'china'
+    }]
+  }
+
+  myMap.setOption(option);
+  //联动：点击地图上的省份区块信息
+  myMap.on('click', function (params) {
+    city = params.name
+    parent.getFromIframe(city)
+    // console.log(city);
+    // location.href = 'http://localhost:81/speciality/?string=' + JSON.stringify(city)
+  });
+</script>
+
+
+</body>
+</html>

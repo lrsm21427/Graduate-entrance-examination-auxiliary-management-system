@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../../js/echarts.js"></script>
+</head>
+<body>
+<!--历年高校分数线树状图-->
+<div id="tree" style="width:1500px;height: 500px"></div>
+<script>
+  var chartDom = document.getElementById('tree');
+  var myChart = echarts.init(chartDom);
+  var option;
+  var area=null;
+
+  const data = {
+    name: '中国',
+    children: [
+      {
+        name: '东北',
+        children: [
+          {
+            name: '黑龙江',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name: '东北农业大学', value: 270 },
+                  { name: '东北林业大学', value: 288 },
+                  { name: '哈尔滨工业大学', value: 327 },
+                  { name: '哈尔滨工程大学', value: 144 },
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name: '东北农业大学', value: 255 },
+                  { name: '东北林业大学', value: 285 },
+                  { name: '哈尔滨工业大学', value: 307 },
+                  { name: '哈尔滨工程大学', value: 0 },
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name: '东北林业大学', value: 308 },
+                  { name: '东北石油大学', value: 290 },
+                  { name: '中共黑龙江省委党校', value: 332 },
+                  { name: '佳木斯大学', value: 286 },
+                  { name: '哈尔滨医科大学', value: 283 },
+                  { name: '哈尔滨商业大学', value: 318 },
+                  { name: '哈尔滨工业大学', value: 322 },
+                  { name: '哈尔滨工程大学', value: 272 },
+                  { name: '哈尔滨师范大学', value: 329 },
+                  { name: '哈尔滨理工大学', value: 317 },
+                  { name: '黑龙江大学', value: 322 },
+                  { name: '黑龙江科技大学', value: 270 }
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name: '东北农业大学', value: 276 },
+                  { name: '东北林业大学', value: 283 },
+                  { name: '东北石油大学', value: 276 },
+                  { name: '佳木斯大学', value: 306 },
+                  { name: '哈尔滨医科大学', value: 297 },
+                  { name: '哈尔滨商业大学', value: 313 },
+                  { name: '哈尔滨工业大学', value: 314 },
+                  { name: '哈尔滨工程大学', value: 292 },
+                  { name: '哈尔滨师范大学', value: 326 },
+                  { name: '哈尔滨理工大学', value: 278 },
+                  { name: '牡丹江医学院', value: 295 },
+                  { name: '牡丹江师范学院', value: 318 },
+                  { name: '黑龙江中医药大学', value: 300 },
+                  { name: '黑龙江八一农垦大学', value: 273 },
+                  { name: '黑龙江大学', value: 306 },
+                  { name: '黑龙江科技大学', value: 278 },
+                  { name: '齐齐哈尔大学', value: 318 }
+                ]
+              },
+            ]
+          },
+          {
+            name: '吉林',
+            children: [
+              {
+                name: '2017年',
+                children: [
+
+                  { name: '东北师范大学', value: 307 },
+                  { name: '吉林大学', value: 325 },
+                  { name: '延边大学', value: 298 }
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name: '吉林大学', value: 319 }
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name: '东北师范大学', value: 311 },
+                  { name: '东北电力大学', value: 278 },
+                  { name: '北华大学', value: 290 },
+                  { name: '吉林农业大学', value: 274 },
+                  { name: '吉林大学', value: 326 },
+                  { name: '吉林师范大学', value: 314 },
+                  { name: '吉林艺术学院', value: 337 },
+                  { name: '延边大学', value: 299 },
+                  { name: '长春中医药大学', value: 305 },
+                  { name: '长春大学', value: 345 },
+                  { name: '长春工业大学', value: 283 },
+                  { name: '长春师范大学', value: 290 },
+                  { name: '长春理工大学', value: 294 }
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name: '东北师范大学', value: 321 },
+                  { name: '东北电力大学', value: 280 },
+                  { name: '北华大学', value: 295 },
+                  { name: '吉林农业大学', value: 274 },
+                  { name: '吉林化工学院', value: 288 },
+                  { name: '吉林大学', value: 316 },
+                  { name: '吉林师范大学', value: 327 },
+                  { name: '吉林艺术学院', value: 344 },
+                  { name: '延边大学', value: 291 },
+                  { name: '长春中医药大学', value: 252 },
+                  { name: '长春大学', value: 302 },
+                  { name: '长春工业大学', value: 303 },
+                  { name: '长春师范大学', value: 314 },
+                  { name: '长春理工大学', value: 299 }
+                ]
+              }
+            ]
+          },
+          {
+            name: '辽宁',
+            children: [
+              {
+                name: '2017年',
+                children: [
+
+                  { name: '东北大学', value: 318 },
+                  { name: '大连海事大学', value: 272 },
+                  { name: '大连理工大学', value: 328 },
+                  { name: '辽宁大学', value: 308 }
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name: '东北大学', value: 305 }  ,
+                  { name: '大连海事大学', value: 265 },
+                  { name: '大连理工大学', value: 314 },
+                  { name: '辽宁大学', value: 341 },
+                  { name: '辽宁师范大学', value: 315 }
+
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name: '东北大学', value: 275 },
+                  { name: '中国刑事警察学院', value: 320 },
+                  { name: '大连交通大学', value: 256 },
+                  { name: '大连医科大学', value: 305 },
+                  { name: '大连外国语大学', value: 312 },
+                  { name: '大连大学', value: 291 },
+                  { name: '大连海事大学', value: 288 },
+                  { name: '大连理工大学', value: 311 },
+                  { name: '沈阳农业大学', value: 278 },
+                  { name: '沈阳化工大学', value: 279 },
+                  { name: '沈阳医学院', value: 305 },
+                  { name: '沈阳大学', value: 305 },
+                  { name: '沈阳工业大学', value: 280 },
+                  { name: '沈阳师范大学', value: 313 },
+                  { name: '沈阳建筑大学', value: 263 },
+                  { name: '沈阳理工大学', value: 286 },
+                  { name: '沈阳航空航天大学', value: 287 },
+                  { name: '渤海大学', value: 323 },
+                  { name: '辽宁中医药大学', value: 305 },
+                  { name: '辽宁大学', value: 319 },
+                  { name: '辽宁工业大学', value: 257 },
+                  { name: '辽宁师范大学', value: 325 },
+                  { name: '辽宁科技大学', value: 274 },
+                  { name: '锦州医科大学', value: 305 },
+                  { name: '鲁迅美术学院', value: 276 }
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name: '东北大学', value: 332 },
+                  { name: '中国刑事警察学院', value: 238 },
+                  { name: '中国医科大学', value: 282 },
+                  { name: '大连交通大学', value: 281 },
+                  { name: '大连医科大学', value: 300 },
+                  { name: '大连外国语大学', value: 356 },
+                  { name: '大连大学', value: 291 },
+                  { name: '大连海事大学', value: 296 },
+                  { name: '沈阳农业大学', value: 286 },
+                  { name: '沈阳化工大学', value: 271 },
+                  { name: '沈阳医学院', value: 300 },
+                  { name: '沈阳工业大学', value: 283 },
+                  { name: '沈阳师范大学', value: 320 },
+                  { name: '沈阳建筑大学', value: 249 },
+                  { name: '沈阳理工大学', value: 288 },
+                  { name: '沈阳航空航天大学', value: 279 },
+                  { name: '沈阳药科大学', value: 299 },
+                  { name: '沈阳音乐学院', value: 347 },
+                  { name: '渤海大学', value: 214 },
+                  { name: '辽宁中医药大学', value: 305 },
+                  { name: '辽宁大学', value: 316 },
+                  { name: '辽宁工业大学', value: 266 },
+                  { name: '辽宁师范大学', value: 320 },
+                  { name: '辽宁石油化工大学', value: 279 },
+                  { name: '辽宁科技大学', value: 262 },
+                  { name: '锦州医科大学', value: 128},
+                  { name: '鲁迅美术学院', value: 347 }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: '华北',
+        children: [
+          {
+            name: '北京',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 中国人民大学', value: 339},
+                  { name:' 中国传媒大学', value: 347},
+                  { name:' 中国农业大学', value: 307},
+                  { name:' 中国地质大学（北京）', value: 269},
+                  { name:' 中国政法大学', value: 342},
+                  { name:' 中国石油大学（北京）', value: 265},
+                  { name:' 中国矿业大学（北京）', value: 270},
+                  { name:' 中央民族大学', value: 315},
+                  { name:' 中央财经大学', value: 345},
+                  { name:' 北京中医药大学', value: 295},
+                  { name:' 北京交通大学', value: 274},
+                  { name:' 北京体育大学', value: 311},
+                  { name:' 北京化工大学', value: 274},
+                  { name:' 北京外国语大学', value: 342},
+                  { name:' 北京大学', value: 293},
+                  { name:' 北京工业大学', value: 294},
+                  { name:' 北京师范大学', value: 315},
+                  { name:' 北京理工大学', value: 317},
+                  { name:' 北京科技大学', value: 267},
+                  { name:' 北京航空航天大学', value: 295},
+                  { name:' 北京邮电大学', value: 264},
+                  { name:' 华北电力大学', value: 293},
+                  { name:' 对外经济贸易大学', value: 340},
+                  { name:' 清华大学', value: 328},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 中国人民大学', value: 337},
+                  { name:' 中国农业大学', value: 296},
+                  { name:' 中央财经大学', value: 324},
+                  { name:' 北京交通大学', value: 324},
+                  { name:' 北京大学', value: 319},
+                  { name:' 北京师范大学', value: 318},
+                  { name:' 北京理工大学', value: 320},
+                  { name:' 对外经济贸易大学', value: 338},
+                  { name:' 清华大学', value: 319},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中国中医科学院', value: 321},
+                  { name:' 中国人民大学', value: 352},
+                  { name:' 中国传媒大学', value: 345},
+                  { name:' 中国农业大学', value: 311},
+                  { name:' 中国农业科学院', value: 245},
+                  { name:' 中国政法大学', value: 348},
+                  { name:' 中国科学院大学', value: 307},
+                  { name:' 中央民族大学', value: 339},
+                  { name:' 中央美术学院', value: 305},
+                  { name:' 中央财经大学', value: 334},
+                  { name:' 北京中医药大学', value: 305},
+                  { name:' 北京交通大学', value: 288},
+                  { name:' 北京信息科技大学', value: 287},
+                  { name:' 北京农学院', value: 300},
+                  { name:' 北京化工大学', value: 297},
+                  { name:' 北京协和医学院', value: 304},
+                  { name:' 北京印刷学院', value: 290},
+                  { name:' 北京外国语大学', value: 111},
+                  { name:' 北京大学', value: 327},
+                  { name:' 北京工业大学', value: 315},
+                  { name:' 北京工商大学', value: 310},
+                  { name:' 北京市环境保护科学研究院', value: 300},
+                  { name:' 北京师范大学', value: 326},
+                  { name:' 北京建筑大学', value: 284},
+                  { name:' 北京服装学院', value: 330},
+                  { name:' 北京林业大学', value: 298},
+                  { name:' 北京理工大学', value: 326},
+                  { name:' 北京科技大学', value: 306},
+                  { name:' 北京第二外国语学院', value: 339},
+                  { name:' 北京联合大学', value: 272},
+                  { name:' 北京航空航天大学', value: 294},
+                  { name:' 北京邮电大学', value: 285},
+                  { name:' 北方工业大学', value: 301},
+                  { name:' 华北电力大学', value: 329},
+                  { name:' 外交学院', value: 345},
+                  { name:' 对外经济贸易大学', value: 332},
+                  { name:' 清华大学', value: 319},
+                  { name:' 解放军医学院', value: 295},
+                  { name:' 首都医科大学', value: 306},
+                  { name:' 首都师范大学', value: 320},
+                  { name:' 首都经济贸易大学', value: 325},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中国人民大学', value: 215},
+                  { name:' 中国人民解放军军事医学科学院', value: 13},
+                  { name:' 中国传媒大学', value: 337},
+                  { name:' 中国农业大学', value: 220},
+                  { name:' 中国农业科学院', value: 270},
+                  { name:' 中国地质大学（北京）', value: 228},
+                  { name:' 中国戏曲学院', value: 351},
+                  { name:' 中国政法大学', value: 344},
+                  { name:' 中国石油大学（北京）', value: 0},
+                  { name:' 中国矿业大学（北京）', value: 16},
+                  { name:' 中国社会科学院研究生院', value: 0},
+                  { name:' 中国科学院大学', value: 269},
+                  { name:' 中国音乐学院', value: 350},
+                  { name:' 中央戏剧学院', value: 347},
+                  { name:' 中央民族大学', value: 257},
+                  { name:' 中央美术学院', value: 284},
+                  { name:' 中央财经大学', value: 269},
+                  { name:' 中央音乐学院', value: 348},
+                  { name:' 北京中医药大学', value: 67},
+                  { name:' 北京交通大学', value: 279},
+                  { name:' 北京信息科技大学', value: 211},
+                  { name:' 北京农学院', value: 134},
+                  { name:' 北京化工大学', value: 163},
+                  { name:' 北京协和医学院', value: 300},
+                  { name:' 北京印刷学院', value: 318},
+                  { name:' 北京外国语大学', value: 262},
+                  { name:' 北京大学', value: 174},
+                  { name:' 北京工业大学', value: 177},
+                  { name:' 北京工商大学', value: 211},
+                  { name:' 北京师范大学', value: 272},
+                  { name:' 北京建筑大学', value: 259},
+                  { name:' 北京服装学院', value: 320},
+                  { name:' 北京林业大学', value: 265},
+                  { name:' 北京理工大学', value: 246},
+                  { name:' 北京电影学院', value: 348},
+                  { name:' 北京石油化工学院', value: 264},
+                  { name:' 北京科技大学', value: 291},
+                  { name:' 北京第二外国语学院', value: 180},
+                  { name:' 北京联合大学', value: 227},
+                  { name:' 北京航空航天大学', value: 297},
+                  { name:' 北京邮电大学', value: 273},
+                  { name:' 北方工业大学', value: 152},
+                  { name:' 华北电力大学', value: 289},
+                  { name:' 外交学院', value: 350},
+                  { name:' 对外经济贸易大学', value: 348},
+                  { name:' 清华大学', value: 171},
+                  { name:' 首都医科大学', value: 305},
+                  { name:' 首都师范大学', value: 312},
+                  { name:' 首都经济贸易大学', value: 230},
+
+                ]
+              },
+            ]
+          },
+          {
+            name: '天津',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 南开大学', value: 335},
+                  { name:' 天津医科大学', value: 294},
+                  { name:' 天津大学', value: 305},
+                  { name:' 河北工业大学', value: 280}
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 南开大学', value: 321},
+                  { name:' 天津医科大学', value: 295},
+                  { name:' 天津大学', value: 304},
+                  { name:' 河北工业大学', value: 265},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 南开大学', value: 330},
+                  { name:' 天津商业大学', value: 323},
+                  { name:' 天津城建大学', value: 270},
+                  { name:' 天津外国语大学', value: 355},
+                  { name:' 天津大学', value: 312},
+                  { name:' 天津工业大学', value: 280},
+                  { name:' 天津师范大学', value: 315},
+                  { name:' 天津理工大学', value: 296},
+                  { name:' 天津科技大学', value: 237},
+                  { name:' 天津美术学院', value: 340},
+                  { name:' 河北工业大学', value: 282},
+
+
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中国民航大学', value: 169},
+                  { name:' 南开大学', value: 264},
+                  { name:' 天津中医药大学', value: 122},
+                  { name:' 天津商业大学', value: 276},
+                  { name:' 天津城建大学', value: 260},
+                  { name:' 天津外国语大学', value: 353},
+                  { name:' 天津大学', value: 174},
+                  { name:' 天津工业大学', value: 191},
+                  { name:' 天津师范大学', value: 204},
+                  { name:' 天津理工大学', value: 169},
+                  { name:' 天津科技大学', value: 172},
+                  { name:' 天津美术学院', value: 347},
+                  { name:' 天津职业技术师范大学', value: 248},
+                  { name:' 河北工业大学', value: 291},
+                ]
+              },
+            ]
+          },
+          {
+            name: '山西',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 太原理工大学', value: 273},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 太原理工大学', value: 273},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中北大学', value: 289},
+                  { name:' 太原师范学院', value: 290},
+                  { name:' 太原理工大学', value: 289},
+                  { name:' 太原科技大学', value: 266},
+                  { name:' 山西农业大学', value: 276},
+                  { name:' 山西医科大学', value: 313},
+                  { name:' 山西大学', value: 307},
+                  { name:' 山西师范大学', value: 307},
+
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中北大学', value: 284},
+                  { name:' 太原师范学院', value: 298},
+                  { name:' 太原理工大学', value: 270},
+                  { name:' 太原科技大学', value: 277},
+                  { name:' 山西农业大学', value: 266},
+                  { name:' 山西医科大学', value: 299},
+                  { name:' 山西大学', value: 306},
+                  { name:' 山西师范大学', value: 315},
+
+                ]
+              },
+            ]
+          },
+          {
+            name: '河北',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 华北电力大学（保定）', value: 273},
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 华北理工大学', value: 293},
+                  { name:' 华北电力大学（保定）', value: 296},
+                  { name:' 天津航海仪器研究所', value: 270},
+                  { name:' 河北农业大学', value: 291},
+                  { name:' 河北工程大学', value: 305},
+                  { name:' 河北师范大学', value: 316},
+                  { name:' 河北建筑工程学院', value: 294},
+                  { name:' 河北科技大学', value: 271},
+                  { name:' 燕山大学', value: 275},
+                  { name:' 石家庄通信测控技术研究所', value: 270},
+                  { name:' 石家庄铁道大学', value: 293},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 华北理工大学', value: 290},
+                  { name:' 华北电力大学（保定）', value: 0},
+                  { name:' 河北农业大学', value: 264},
+                  { name:' 河北大学', value: 313},
+                  { name:' 河北工程大学', value: 264},
+                  { name:' 河北师范大学', value: 325},
+                  { name:' 河北建筑工程学院', value: 273},
+                  { name:' 河北科技大学', value: 271},
+                  { name:' 河北科技师范学院', value: 156},
+                  { name:' 燕山大学', value: 290},
+                  { name:' 石家庄铁道大学', value: 277},
+                ]
+              },
+            ]
+          },
+          {
+            name: '内蒙古',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 内蒙古大学', value: 311},
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 内蒙古农业大学', value: 261},
+                  { name:' 内蒙古医科大学', value: 294},
+                  { name:' 内蒙古大学', value: 303},
+                  { name:' 内蒙古工业大学', value: 262},
+                  { name:' 内蒙古师范大学', value: 309},
+                  { name:' 内蒙古民族大学', value: 295},
+                  { name:' 内蒙古科技大学', value: 278},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 内蒙古农业大学', value: 260},
+                  { name:' 内蒙古医科大学', value: 290},
+                  { name:' 内蒙古大学', value: 297},
+                  { name:' 内蒙古工业大学', value: 269},
+                  { name:' 内蒙古师范大学', value: 286},
+                  { name:' 内蒙古民族大学', value: 234},
+                  { name:' 内蒙古科技大学', value: 160},
+                ]
+              },
+            ]
+          },
+        ]
+      },
+      {
+        name: '西北',
+        children: [
+          {
+            name: '陕西',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 西北农林科技大学', value: 276},
+                  { name:' 西北大学', value: 297},
+                  { name:' 西北工业大学', value: 318},
+                  { name:' 西安交通大学', value: 327},
+                  { name:' 西安电子科技大学', value: 284},
+                  { name:' 长安大学', value: 268},
+                  { name:' 陕西师范大学', value: 308},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 西北工业大学', value: 317},
+                  { name:' 西安交通大学', value: 324},
+                  { name:' 长安大学', value: 280},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中国航空研究院618所', value: 350},
+                  { name:' 宝鸡文理学院', value: 285},
+                  { name:' 延安大学', value: 308},
+                  { name:' 航天动力技术研究院', value: 270},
+                  { name:' 西北大学', value: 324},
+                  { name:' 西北工业大学', value: 321},
+                  { name:' 西北政法大学', value: 332},
+                  { name:' 西安交通大学', value: 325},
+                  { name:' 西安体育学院', value: 304},
+                  { name:' 西安医学院', value: 305},
+                  { name:' 西安工业大学', value: 288},
+                  { name:' 西安工程大学', value: 255},
+                  { name:' 西安建筑科技大学', value: 285},
+                  { name:' 西安理工大学', value: 282},
+                  { name:' 西安电子科技大学', value: 292},
+                  { name:' 西安石油大学', value: 270},
+                  { name:' 西安科技大学', value: 268},
+                  { name:' 西安美术学院', value: 340},
+                  { name:' 西安邮电大学', value: 318},
+                  { name:' 陕西中医药大学', value: 313},
+                  { name:' 陕西师范大学', value: 321},
+                  { name:' 陕西科技大学', value: 279},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 宝鸡文理学院', value: 221},
+                  { name:' 延安大学', value: 88},
+                  { name:' 西北农林科技大学', value: 41},
+                  { name:' 西北政法大学', value: 147},
+                  { name:' 西安交通大学', value: 195},
+                  { name:' 西安医学院', value: 300},
+                  { name:' 西安工业大学', value: 37},
+                  { name:' 西安工程大学', value: 277},
+                  { name:' 西安建筑科技大学', value: 109},
+                  { name:' 西安理工大学', value: 282},
+                  { name:' 西安电子科技大学', value: 63},
+                  { name:' 西安石油大学', value: 54},
+                  { name:' 西安科技大学', value: 155},
+                  { name:' 西安美术学院', value: 0},
+                  { name:' 西安邮电大学', value: 304},
+                  { name:' 陕西中医药大学', value: 125},
+                  { name:' 陕西师范大学', value: 67},
+                  { name:' 陕西科技大学', value: 0},
+                ]
+              },
+            ]
+          },
+          {
+            name: '甘肃',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 兰州大学', value: 312},
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 兰州交通大学', value: 265},
+                  { name:' 兰州大学', value: 311},
+                  { name:' 兰州理工大学', value: 313},
+                  { name:' 兰州财经大学', value: 328},
+                  { name:' 甘肃中医药大学', value: 265},
+                  { name:' 甘肃农业大学', value: 265},
+                  { name:' 甘肃政法学院', value: 308},
+                  { name:' 西北师范大学', value: 311},
+                  { name:' 西北民族大学', value: 302},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 兰州财经大学', value: 315},
+                  { name:' 甘肃中医药大学', value: 0},
+                  { name:' 甘肃政法学院', value: 21},
+                  { name:' 西北师范大学', value: 302},
+                  { name:' 西北民族大学', value: 324},
+                ]
+              },
+            ]
+          },
+          {
+            name: '青海',
+            children: [
+              {
+                name: '2017年',
+                children: []
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name: '青海大学', value: 280 },
+
+                ]
+              },
+              {
+                name: '2020年',
+                children: []
+              },
+            ]
+          },
+          {
+            name: '宁夏',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 宁夏大学', value: 278},
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 北方民族大学', value: 287},
+                  { name:' 宁夏医科大学', value: 291},
+                  { name:' 宁夏大学', value: 290},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 北方民族大学', value: 272},
+                ]
+              },
+            ]
+          },
+          {
+            name: '新疆',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 新疆大学', value: 280},
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 塔里木大学', value: 258},
+                  { name:' 新疆医科大学', value: 294},
+                  { name:' 新疆师范大学', value: 299},
+                  { name:' 新疆财经大学', value: 190},
+                  { name:' 石河子大学', value: 288},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 新疆农业大学', value: 87},
+                  { name:' 新疆大学', value: 0},
+                  { name:' 新疆财经大学', value: 161},
+                ]
+              },
+            ]
+          },
+        ]
+      },
+      {
+        name: '华东',
+        children: [
+          {
+            name: '上海',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 上海交通大学', value: 265},
+                  { name:' 上海外国语大学', value: 329},
+                  { name:' 上海大学', value: 289},
+                  { name:' 上海财经大学', value: 318},
+                  { name:' 东华大学', value: 275},
+                  { name:' 华东师范大学', value: 305},
+                  { name:' 华东理工大学', value: 279},
+                  { name:' 同济大学', value: 309},
+                  { name:' 复旦大学', value: 324},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 上海交通大学', value: 312},
+                  { name:' 上海大学', value: 325},
+                  { name:' 上海财经大学', value: 391},
+                  { name:' 东华大学', value: 265},
+                  { name:' 同济大学', value: 307},
+                  { name:' 复旦大学', value: 340},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 上海中医药大学', value: 305},
+                  { name:' 上海交通大学', value: 330},
+                  { name:' 上海体育学院', value: 281},
+                  { name:' 上海外国语大学', value: 310},
+                  { name:' 上海大学', value: 313},
+                  { name:' 上海对外经贸大学', value: 335},
+                  { name:' 上海师范大学', value: 327},
+                  { name:' 上海应用技术大学', value: 270},
+                  { name:' 上海海事大学', value: 301},
+                  { name:' 上海海洋大学', value: 277},
+                  { name:' 上海理工大学', value: 278},
+                  { name:' 上海电力学院', value: 270},
+                  { name:' 上海财经大学', value: 336},
+                  { name:' 东华大学', value: 302},
+                  { name:' 华东师范大学', value: 324},
+                  { name:' 华东政法大学', value: 316},
+                  { name:' 华东理工大学', value: 321},
+                  { name:' 同济大学', value: 287},
+                  { name:' 复旦大学', value: 333},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 上海中医药大学', value: 316},
+                  { name:' 上海交通大学', value: 288},
+                  { name:' 上海体育学院', value: 251},
+                  { name:' 上海外国语大学', value: 270},
+                  { name:' 上海大学', value: 307},
+                  { name:' 上海对外经贸大学', value: 336},
+                  { name:' 上海工程技术大学', value: 203},
+                  { name:' 上海师范大学', value: 306},
+                  { name:' 上海应用技术大学', value: 265},
+                  { name:' 上海政法学院', value: 270},
+                  { name:' 上海海事大学', value: 284},
+                  { name:' 上海海洋大学', value: 244},
+                  { name:' 上海理工大学', value: 281},
+                  { name:' 上海电力学院', value: 273},
+                  { name:' 上海财经大学', value: 244},
+                  { name:' 东华大学', value: 324},
+                  { name:' 中国航空研究院640所', value: 0},
+                  { name:' 华东师范大学', value: 237},
+                  { name:' 华东政法大学', value: 326},
+                  { name:' 华东理工大学', value: 308},
+                  { name:' 同济大学', value: 222},
+                  { name:' 复旦大学', value: 260},
+                  { name:' 第二军医大学', value: 0},
+                ]
+              },
+            ]
+          },
+          {
+            name: '江苏',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 东南大学', value: 328},
+                  { name:' 中国矿业大学', value: 288},
+                  { name:' 中国药科大学', value: 302},
+                  { name:' 南京农业大学', value: 260},
+                  { name:' 南京大学', value: 325},
+                  { name:' 南京师范大学', value: 306},
+                  { name:' 南京理工大学', value: 263},
+                  { name:' 南京航空航天大学', value: 317},
+                  { name:' 江南大学', value: 275},
+                  { name:' 河海大学', value: 276},
+                  { name:' 苏州大学', value: 302},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 东南大学', value: 313},
+                  { name:' 南京大学', value: 320},
+                  { name:' 南京师范大学', value: 290},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 东南大学', value: 333},
+                  { name:' 中国矿业大学', value: 296},
+                  { name:' 中国药科大学', value: 313},
+                  { name:' 南京中医药大学', value: 305},
+                  { name:' 南京信息工程大学', value: 295},
+                  { name:' 南京农业大学', value: 285},
+                  { name:' 南京医科大学', value: 306},
+                  { name:' 南京大学', value: 326},
+                  { name:' 南京审计大学', value: 357},
+                  { name:' 南京工业大学', value: 304},
+                  { name:' 南京师范大学', value: 315},
+                  { name:' 南京理工大学', value: 309},
+                  { name:' 南京航空航天大学', value: 316},
+                  { name:' 南京艺术学院', value: 340},
+                  { name:' 南京财经大学', value: 310},
+                  { name:' 南京邮电大学', value: 297},
+                  { name:' 南通大学', value: 305},
+                  { name:' 常州大学', value: 283},
+                  { name:' 扬州大学', value: 300},
+                  { name:' 江南大学', value: 303},
+                  { name:' 江苏大学', value: 268},
+                  { name:' 江苏师范大学', value: 331},
+                  { name:' 河海大学', value: 310},
+                  { name:' 苏州大学', value: 331},
+                  { name:' 苏州科技大学', value: 293},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 东南大学', value: 297},
+                  { name:' 中国矿业大学', value: 296},
+                  { name:' 中国药科大学', value: 313},
+                  { name:' 南京中医药大学', value: 270},
+                  { name:' 南京信息工程大学', value: 37},
+                  { name:' 南京农业大学', value: 312},
+                  { name:' 南京医科大学', value: 276},
+                  { name:' 南京大学', value: 326},
+                  { name:' 南京审计大学', value: 207},
+                  { name:' 南京工业大学', value: 0},
+                  { name:' 南京师范大学', value: 311},
+                  { name:' 南京水利科学研究院', value: 0},
+                  { name:' 南京理工大学', value: 288},
+                  { name:' 南京航空航天大学', value: 314},
+                  { name:' 南京艺术学院', value: 342},
+                  { name:' 南京财经大学', value: 316},
+                  { name:' 南京邮电大学', value: 249},
+                  { name:' 南通大学', value: 302},
+                  { name:' 常州大学', value: 254},
+                  { name:' 扬州大学', value: 281},
+                  { name:' 江南大学', value: 314},
+                  { name:' 江苏大学', value: 238},
+                  { name:' 江苏师范大学', value: 322},
+                  { name:' 江苏理工学院', value: 264},
+                  { name:' 江苏科技大学', value: 211},
+                  { name:' 河海大学', value: 279},
+                  { name:' 淮阴工学院', value: 0},
+                  { name:' 苏州大学', value: 328},
+                  { name:' 苏州科技大学', value: 269},
+                ]
+              },
+            ]
+          },
+          {
+            name: '浙江',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 浙江大学', value: 335},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 浙江大学', value: 345},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 宁波大学', value: 307},
+                  { name:' 杭州师范大学', value: 318},
+                  { name:' 杭州电子科技大学', value: 323},
+                  { name:' 浙江中医药大学', value: 305},
+                  { name:' 浙江农林大学', value: 262},
+                  { name:' 浙江大学', value: 341},
+                  { name:' 浙江工业大学', value: 293},
+                  { name:' 浙江工商大学', value: 347},
+                  { name:' 浙江师范大学', value: 315},
+                  { name:' 浙江理工大学', value: 303},
+                  { name:' 温州医科大学', value: 316},
+                  { name:' 湖州师范学院', value: 305},
+                  { name:' 绍兴文理学院', value: 355},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中国美术学院', value: 330},
+                  { name:' 中国计量大学', value: 296},
+                  { name:' 宁波大学', value: 308},
+                  { name:' 杭州师范大学', value: 303},
+                  { name:' 杭州电子科技大学', value: 257},
+                  { name:' 浙江万里学院', value: 0},
+                  { name:' 浙江中医药大学', value: 300},
+                  { name:' 浙江传媒学院', value: 355},
+                  { name:' 浙江农林大学', value: 257},
+                  { name:' 浙江大学', value: 332},
+                  { name:' 浙江工业大学', value: 292},
+                  { name:' 浙江工商大学', value: 331},
+                  { name:' 浙江师范大学', value: 325},
+                  { name:' 浙江海洋大学', value: 266},
+                  { name:' 浙江理工大学', value: 310},
+                  { name:' 浙江财经大学', value: 342},
+                  { name:' 温州大学', value: 298},
+                  { name:' 湖州师范学院', value: 300},
+                  { name:' 绍兴文理学院', value: 322},
+                ]
+              },
+            ]
+          },
+          {
+            name: '安徽',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 中国科学技术大学', value: 307},
+                  { name:' 合肥工业大学', value: 264},
+                  { name:' 安徽大学', value: 302},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 安徽医科大学', value: 302},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中国科学技术大学', value: 350},
+                  { name:' 合肥工业大学', value: 350},
+                  { name:' 合肥师范学院', value: 310},
+                  { name:' 安庆师范大学', value: 319},
+                  { name:' 安徽农业大学', value: 284},
+                  { name:' 安徽医科大学', value: 210},
+                  { name:' 安徽大学', value: 319},
+                  { name:' 安徽工程大学', value: 306},
+                  { name:' 安徽师范大学', value: 309},
+                  { name:' 安徽建筑大学', value: 270},
+                  { name:' 安徽理工大学', value: 263},
+                  { name:' 淮北师范大学', value: 320},
+                  { name:' 阜阳师范大学', value: 291},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中国科学技术大学', value: 293},
+                  { name:' 合肥工业大学', value: 308},
+                  { name:' 合肥师范学院', value: 331},
+                  { name:' 安庆师范大学', value: 315},
+                  { name:' 安徽中医药大学', value: 305},
+                  { name:' 安徽农业大学', value: 235},
+                  { name:' 安徽医科大学', value: 160},
+                  { name:' 安徽大学', value: 321},
+                  { name:' 安徽工业大学', value: 281},
+                  { name:' 安徽工程大学', value: 302},
+                  { name:' 安徽师范大学', value: 318},
+                  { name:' 安徽建筑大学', value: 194},
+                  { name:' 安徽理工大学', value: 289},
+                  { name:' 安徽科技学院', value: 87},
+                  { name:' 淮北师范大学', value: 283},
+                  { name:' 阜阳师范大学', value: 351},
+                ]
+              },
+            ]
+          },
+          {
+            name: '福建',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 厦门大学', value: 335},
+                  { name:' 福州大学', value: 274},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 厦门大学', value: 317},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 华侨大学', value: 311},
+                  { name:' 厦门大学', value: 329},
+                  { name:' 福州大学', value: 290},
+                  { name:' 福建中医药大学', value: 295},
+                  { name:' 福建农林大学', value: 283},
+                  { name:' 福建医科大学', value: 298},
+                  { name:' 福建工程学院', value: 262},
+                  { name:' 福建师范大学', value: 308},
+                  { name:' 闽南师范大学', value: 296},
+                  { name:' 闽江学院', value: 270},
+                  { name:' 集美大学', value: 270},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 华侨大学', value: 299},
+                  { name:' 厦门大学', value: 320},
+                  { name:' 泉州师范学院', value: 220},
+                  { name:' 福州大学', value: 292},
+                  { name:' 福建中医药大学', value: 301},
+                  { name:' 福建农林大学', value: 272},
+                  { name:' 福建医科大学', value: 305},
+                  { name:' 福建工程学院', value: 264},
+                  { name:' 福建师范大学', value: 311},
+                  { name:' 闽南师范大学', value: 338},
+                  { name:' 闽江学院', value: 175},
+                  { name:' 集美大学', value: 291},
+                ]
+              },
+            ]
+          },
+          {
+            name: '江西',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 南昌大学', value: 270},
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 东华理工大学', value: 288},
+                  { name:' 井冈山大学', value: 325},
+                  { name:' 华东交通大学', value: 314},
+                  { name:' 南昌大学', value: 312},
+                  { name:' 南昌航空大学', value: 277},
+                  { name:' 江西中医药大学', value: 286},
+                  { name:' 江西农业大学', value: 280},
+                  { name:' 江西师范大学', value: 327},
+                  { name:' 江西理工大学', value: 280},
+                  { name:' 江西科技师范大学', value: 287},
+                  { name:' 江西财经大学', value: 323},
+                  { name:' 赣南医学院', value: 270},
+                  { name:' 赣南师范大学', value: 311},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 东华理工大学', value: 280},
+                  { name:' 井冈山大学', value: 325},
+                  { name:' 华东交通大学', value: 234},
+                  { name:' 南昌大学', value: 293},
+                  { name:' 南昌工程学院', value: 264},
+                  { name:' 南昌航空大学', value: 245},
+                  { name:' 景德镇陶瓷大学', value: 259},
+                  { name:' 江西中医药大学', value: 307},
+                  { name:' 江西农业大学', value: 221},
+                  { name:' 江西师范大学', value: 321},
+                  { name:' 江西理工大学', value: 264},
+                  { name:' 江西科技师范大学', value: 311},
+                  { name:' 江西财经大学', value: 326},
+                  { name:' 赣南医学院', value: 300},
+                  { name:' 赣南师范大学', value: 322},
+                ]
+              },
+            ]
+          },
+          {
+            name: '山东',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 中国海洋大学', value: 317},
+                  { name:' 中国石油大学（华东）', value: 266},
+                  { name:' 山东大学', value: 312},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 山东大学', value: 316},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中国海洋大学', value: 170},
+                  { name:' 山东中医药大学', value: 306},
+                  { name:' 山东农业大学', value: 254},
+                  { name:' 山东大学', value: 317},
+                  { name:' 山东工商学院', value: 340},
+                  { name:' 山东师范大学', value: 311},
+                  { name:' 山东建筑大学', value: 267},
+                  { name:' 山东理工大学', value: 272},
+                  { name:' 山东科技大学', value: 295},
+                  { name:' 山东财经大学', value: 227},
+                  { name:' 曲阜师范大学', value: 331},
+                  { name:' 济南大学', value: 313},
+                  { name:' 济宁医学院', value: 320},
+                  { name:' 潍坊医学院', value: 307},
+                  { name:' 聊城大学', value: 323},
+                  { name:' 青岛农业大学', value: 266},
+                  { name:' 青岛大学', value: 320},
+                  { name:' 青岛理工大学', value: 277},
+                  { name:' 青岛科技大学', value: 288},
+                  { name:' 鲁东大学', value: 325},
+                  { name:' 齐鲁工业大学', value: 270},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中国海洋大学', value: 302},
+                  { name:' 中国石油大学（华东）', value: 4},
+                  { name:' 山东中医药大学', value: 306},
+                  { name:' 山东农业大学', value: 281},
+                  { name:' 山东大学', value: 316},
+                  { name:' 山东工商学院', value: 344},
+                  { name:' 山东工艺美术学院', value: 0},
+                  { name:' 山东师范大学', value: 318},
+                  { name:' 山东建筑大学', value: 268},
+                  { name:' 山东理工大学', value: 282},
+                  { name:' 山东科技大学', value: 264},
+                  { name:' 山东财经大学', value: 330},
+                  { name:' 曲阜师范大学', value: 310},
+                  { name:' 济南大学', value: 307},
+                  { name:' 济宁医学院', value: 42},
+                  { name:' 滨州医学院', value: 305},
+                  { name:' 潍坊医学院', value: 303},
+                  { name:' 烟台大学', value: 296},
+                  { name:' 聊城大学', value: 306},
+                  { name:' 青岛农业大学', value: 259},
+                  { name:' 青岛大学', value: 310},
+                  { name:' 青岛理工大学', value: 181},
+                  { name:' 青岛科技大学', value: 294},
+                  { name:' 鲁东大学', value: 296},
+                  { name:' 齐鲁工业大学', value: 274},
+                ]
+              },
+            ]
+          },
+          {
+            name: '台湾',
+            children: []
+          }
+        ]
+      },
+      {
+        name: '西南',
+        children: [
+          {
+            name: '四川',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 四川农业大学', value: 262},
+                  { name:' 四川大学', value: 318},
+                  { name:' 电子科技大学', value: 312},
+                  { name:' 西南交通大学', value: 273},
+                  { name:' 西南财经大学', value: 316},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 四川大学', value: 317},
+                  { name:' 电子科技大学', value: 304},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 四川农业大学', value: 283},
+                  { name:' 四川大学', value: 329},
+                  { name:' 四川师范大学', value: 325},
+                  { name:' 四川理工学院', value: 270},
+                  { name:' 川北医学院', value: 308},
+                  { name:' 成都中医药大学', value: 307},
+                  { name:' 成都理工大学', value: 289},
+                  { name:' 电子科技大学', value: 304},
+                  { name:' 西华大学', value: 355},
+                  { name:' 西华师范大学', value: 311},
+                  { name:' 西南交通大学', value: 309},
+                  { name:' 西南医科大学', value: 306},
+                  { name:' 西南民族大学', value: 312},
+                  { name:' 西南石油大学', value: 275},
+                  { name:' 西南科技大学', value: 320},
+                  { name:' 西南财经大学', value: 335},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中国民用航空飞行学院', value: 264},
+                  { name:' 四川农业大学', value: 279},
+                  { name:' 四川大学', value: 314},
+                  { name:' 四川轻化工大学', value: 285},
+                  { name:' 川北医学院', value: 300},
+                  { name:' 成都中医药大学', value: 305},
+                  { name:' 成都理工大学', value: 294},
+                  { name:' 电子科技大学', value: 282},
+                  { name:' 西华大学', value: 159},
+                  { name:' 西华师范大学', value: 19},
+                  { name:' 西南交通大学', value: 306},
+                  { name:' 西南医科大学', value: 303},
+                  { name:' 西南石油大学', value: 284},
+                  { name:' 西南科技大学', value: 291},
+                  { name:' 西南财经大学', value: 360},
+                ]
+              },
+            ]
+          },
+          {
+            name: '贵州',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 贵州大学', value: 265},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 贵州大学', value: 240},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 贵州医科大学', value: 263},
+                  { name:' 贵州大学', value: 312},
+                  { name:' 贵州师范大学', value: 297},
+                  { name:' 贵州民族大学', value: 311},
+                  { name:' 贵州财经大学', value: 315},
+                  { name:' 贵阳中医学院', value: 295},
+                  { name:' 遵义医学院', value: 296},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 贵州医科大学', value: 0},
+                  { name:' 贵州大学', value: 0},
+                  { name:' 贵州师范大学', value: 146},
+                  { name:' 贵州财经大学', value: 172},
+                  { name:' 贵阳中医学院', value: 0},
+                  { name:' 遵义医学院', value: 158},
+                ]
+              },
+            ]
+          },
+          {
+            name: '云南',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 云南大学', value: 288},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 昆明理工大学', value: 290},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 云南中医学院', value: 295},
+                  { name:' 云南大学', value: 309},
+                  { name:' 云南师范大学', value: 317},
+                  { name:' 云南民族大学', value: 315},
+                  { name:' 云南财经大学', value: 312},
+                  { name:' 大理大学', value: 296},
+                  { name:' 昆明医科大学', value: 294},
+                  { name:' 昆明理工大学', value: 288},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 云南农业大学', value: 255},
+                  { name:' 云南大学', value: 274},
+                  { name:' 云南艺术学院', value: 337},
+                  { name:' 云南财经大学', value: 35},
+                  { name:' 昆明医科大学', value: 0},
+                  { name:' 昆明理工大学', value: 271},
+                ]
+              },
+            ]
+          },
+          {
+            name: '重庆',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 西南大学', value: 283},
+                  { name:' 重庆大学', value: 321},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 重庆大学', value: 318},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中共重庆市委党校', value: 315},
+                  { name:' 四川美术学院', value: 340},
+                  { name:' 西南大学', value: 307},
+                  { name:' 西南政法大学', value: 332},
+                  { name:' 重庆交通大学', value: 265},
+                  { name:' 重庆医科大学', value: 311},
+                  { name:' 重庆大学', value: 326},
+                  { name:' 重庆工商大学', value: 331},
+                  { name:' 重庆师范大学', value: 316},
+                  { name:' 重庆理工大学', value: 279},
+                  { name:' 重庆邮电大学', value: 275},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 西南大学', value: 299},
+                  { name:' 重庆交通大学', value: 281},
+                  { name:' 重庆医科大学', value: 294},
+                  { name:' 重庆大学', value: 320},
+                  { name:' 重庆工商大学', value: 312},
+                  { name:' 重庆师范大学', value: 313},
+                  { name:' 重庆理工大学', value: 247},
+                  { name:' 重庆科技学院', value: 0},
+                  { name:' 重庆邮电大学', value: 284},
+                ]
+              },
+            ]
+          },
+          {
+            name: '西藏',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name: '西藏大学', value: 300 },
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name: '西藏大学', value: 298 },
+                ]
+              },
+              {
+                name: '2020年',
+                children: []
+              },
+            ]
+          },
+        ]
+      },
+      {
+        name: '华南',
+        children: [
+          {
+            name: '广东',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 中山大学', value: 311},
+                  { name:' 华南师范大学', value: 300},
+                  { name:' 华南理工大学', value: 331},
+                  { name:' 暨南大学', value: 305},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 中山大学', value: 312},
+                  { name:' 华南理工大学', value: 311},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中山大学', value: 313},
+                  { name:' 五邑大学', value: 293},
+                  { name:' 仲恺农业工程学院', value: 298},
+                  { name:' 华南农业大学', value: 315},
+                  { name:' 华南师范大学', value: 314},
+                  { name:' 华南理工大学', value: 309},
+                  { name:' 广东外语外贸大学', value: 304},
+                  { name:' 广东工业大学', value: 322},
+                  { name:' 广东海洋大学', value: 271},
+                  { name:' 广东省社会科学院', value: 285},
+                  { name:' 广东药科大学', value: 326},
+                  { name:' 广东财经大学', value: 328},
+                  { name:' 广州大学', value: 302},
+                  { name:' 广州美术学院', value: 342},
+                  { name:' 暨南大学', value: 320},
+                  { name:' 汕头大学', value: 299},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中山大学', value: 245},
+                  { name:' 五邑大学', value: 309},
+                  { name:' 仲恺农业工程学院', value: 255},
+                  { name:' 华南农业大学', value: 275},
+                  { name:' 华南师范大学', value: 317},
+                  { name:' 华南理工大学', value: 307},
+                  { name:' 广东外语外贸大学', value: 0},
+                  { name:' 广东工业大学', value: 263},
+                  { name:' 广东技术师范学院', value: 0},
+                  { name:' 广东海洋大学', value: 256},
+                  { name:' 广东药科大学', value: 300},
+                  { name:' 广东财经大学', value: 305},
+                  { name:' 广州大学', value: 306},
+                  { name:' 广州美术学院', value: 115},
+                  { name:' 暨南大学', value: 332},
+                  { name:' 汕头大学', value: 301},
+                  { name:' 深圳大学', value: 340},
+                ]
+              },
+            ]
+          },
+          {
+            name: '广西',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 广西大学', value: 256},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 广西民族大学', value: 335},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 右江民族医学院', value: 295},
+                  { name:' 广西医科大学', value: 268},
+                  { name:' 广西大学', value: 326},
+                  { name:' 广西师范大学', value: 304},
+                  { name:' 广西师范学院', value: 309},
+                  { name:' 广西财经学院', value: 297},
+                  { name:' 桂林医学院', value: 295},
+                  { name:' 桂林理工大学', value: 289},
+                  { name:' 桂林电子科技大学', value: 256},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 右江民族医学院', value: 300},
+                  { name:' 广西医科大学', value: 288},
+                  { name:' 广西大学', value: 282},
+                  { name:' 广西师范大学', value: 301},
+                  { name:' 广西民族大学', value: 306},
+                  { name:' 广西科技大学', value: 254},
+                  { name:' 广西艺术学院', value: 338},
+                  { name:' 桂林医学院', value: 290},
+                  { name:' 桂林理工大学', value: 271},
+                  { name:' 桂林电子科技大学', value: 277},
+                ]
+              },
+            ]
+          },
+          {
+            name: '海南',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 海南大学', value: 271},
+                ]
+              },
+              {
+                name: '2018年',
+                children: []
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 海南大学', value: 296},
+                  { name:' 海南师范大学', value: 308},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 海南医学院', value: 300},
+                  { name:' 海南大学', value: 303},
+                  { name:' 海南师范大学', value: 315},
+                ]
+              },
+            ]
+          },
+          {
+            name: '香港',
+            children: []
+          },
+          {
+            name: '澳门',
+            children: []
+          },
+        ]
+      },
+      {
+        name: '华中',
+        children: [
+          {
+            name: '河南',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 郑州大学', value: 303},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 郑州大学', value: 265},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中原工学院', value: 292},
+                  { name:' 信阳师范学院', value: 318},
+                  { name:' 华北水利水电大学', value: 289},
+                  { name:' 安阳师范学院', value: 355},
+                  { name:' 新乡医学院', value: 303},
+                  { name:' 河南中医药大学', value: 280},
+                  { name:' 河南农业大学', value: 284},
+                  { name:' 河南大学', value: 311},
+                  { name:' 河南师范大学', value: 342},
+                  { name:' 河南理工大学', value: 303},
+                  { name:' 河南科技大学', value: 271},
+                  { name:' 洛阳师范学院', value: 338},
+                  { name:' 郑州大学', value: 312},
+                  { name:' 郑州航空工业管理学院', value: 345},
+                  { name:' 郑州轻工业学院', value: 270},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中原工学院', value: 261},
+                  { name:' 信阳师范学院', value: 340},
+                  { name:' 华北水利水电大学', value: 247},
+                  { name:' 安阳师范学院', value: 331},
+                  { name:' 新乡医学院', value: 270},
+                  { name:' 河南中医药大学', value: 300},
+                  { name:' 河南农业大学', value: 256},
+                  { name:' 河南大学', value: 317},
+                  { name:' 河南师范大学', value: 311},
+                  { name:' 河南理工大学', value: 261},
+                  { name:' 河南科技大学', value: 242},
+                  { name:' 洛阳师范学院', value: 124},
+                  { name:' 郑州大学', value: 311},
+                  { name:' 郑州轻工业学院', value: 0},
+                ]
+              },
+            ]
+          },
+          {
+            name: '湖北',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 中南财经政法大学', value: 320},
+                  { name:' 中国地质大学（武汉）', value: 276},
+                  { name:' 华中师范大学', value: 312},
+                  { name:' 华中科技大学', value: 316},
+                  { name:' 武汉大学', value: 319},
+                  { name:' 武汉理工大学', value: 264},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 华中科技大学', value: 319},
+                  { name:' 武汉大学', value: 372},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中南民族大学', value: 315},
+                  { name:' 中南财经政法大学', value: 352},
+                  { name:' 华中光电技术研究所', value: 330},
+                  { name:' 华中农业大学', value: 277},
+                  { name:' 华中师范大学', value: 308},
+                  { name:' 华中科技大学', value: 330},
+                  { name:' 武汉体育学院', value: 299},
+                  { name:' 武汉大学', value: 333},
+                  { name:' 武汉工程大学', value: 298},
+                  { name:' 武汉理工大学', value: 203},
+                  { name:' 武汉科技大学', value: 272},
+                  { name:' 武汉纺织大学', value: 304},
+                  { name:' 武汉轻工大学', value: 293},
+                  { name:' 湖北中医药大学', value: 276},
+                  { name:' 湖北大学', value: 297},
+                  { name:' 湖北工业大学', value: 207},
+                  { name:' 湖北师范大学', value: 290},
+                  { name:' 湖北民族大学', value: 305},
+                  { name:' 湖北汽车工业学院', value: 308},
+                  { name:' 湖北美术学院', value: 324},
+                  { name:' 长江大学', value: 276},
+                  { name:' 黄冈师范学院', value: 355},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中南民族大学', value: 320},
+                  { name:' 中南财经政法大学', value: 356},
+                  { name:' 中国地质大学（武汉）', value: 0},
+                  { name:' 华中农业大学', value: 298},
+                  { name:' 华中师范大学', value: 322},
+                  { name:' 华中科技大学', value: 326},
+                  { name:' 武汉体育学院', value: 300},
+                  { name:' 武汉大学', value: 336},
+                  { name:' 武汉工程大学', value: 299},
+                  { name:' 武汉理工大学', value: 311},
+                  { name:' 武汉科技大学', value: 291},
+                  { name:' 武汉纺织大学', value: 304},
+                  { name:' 武汉轻工大学', value: 282},
+                  { name:' 湖北中医药大学', value: 306},
+                  { name:' 湖北大学', value: 317},
+                  { name:' 湖北工业大学', value: 300},
+                  { name:' 湖北师范大学', value: 248},
+                  { name:' 湖北文理学院', value: 340},
+                  { name:' 湖北民族大学', value: 292},
+                  { name:' 湖北汽车工业学院', value: 264},
+                  { name:' 湖北美术学院', value: 347},
+                  { name:' 长江大学', value: 282},
+                  { name:' 黄冈师范学院', value: 336},
+                ]
+              },
+            ]
+          },
+          {
+            name: '湖南',
+            children: [
+              {
+                name: '2017年',
+                children: [
+                  { name:' 中南大学', value: 309},
+                  { name:' 国防科学技术大学', value: 294},
+                  { name:' 湖南大学', value: 316},
+                  { name:' 湖南师范大学', value: 318},
+                ]
+              },
+              {
+                name: '2018年',
+                children: [
+                  { name:' 中南大学', value: 311},
+                  { name:' 湖南大学', value: 317},
+                ]
+              },
+              {
+                name: '2019年',
+                children: [
+                  { name:' 中共湖南省委党校', value: 320},
+                  { name:' 中南大学', value: 324},
+                  { name:' 中南林业科技大学', value: 288},
+                  { name:' 南华大学', value: 279},
+                  { name:' 吉首大学', value: 310},
+                  { name:' 湖南中医药大学', value: 270},
+                  { name:' 湖南农业大学', value: 288},
+                  { name:' 湖南商学院', value: 315},
+                  { name:' 湖南大学', value: 300},
+                  { name:' 湖南工业大学', value: 314},
+                  { name:' 湖南师范大学', value: 321},
+                  { name:' 湖南理工学院', value: 325},
+                  { name:' 湖南科技大学', value: 320},
+                  { name:' 湘潭大学', value: 295},
+                  { name:' 长沙理工大学', value: 268},
+                  { name:' 长沙矿山研究院', value: 270},
+                ]
+              },
+              {
+                name: '2020年',
+                children: [
+                  { name:' 中南大学', value: 310},
+                  { name:' 中南林业科技大学', value: 266},
+                  { name:' 南华大学', value: 299},
+                  { name:' 吉首大学', value: 251},
+                  { name:' 国防科学技术大学', value: 0},
+                  { name:' 湖南中医药大学', value: 67},
+                  { name:' 湖南农业大学', value: 222},
+                  { name:' 湖南大学', value: 339},
+                  { name:' 湖南工业大学', value: 304},
+                  { name:' 湖南工商大学', value: 331},
+                  { name:' 湖南师范大学', value: 331},
+                  { name:' 湖南理工学院', value: 289},
+                  { name:' 湖南科技大学', value: 295},
+                  { name:' 湘潭大学', value: 290},
+                  { name:' 衡阳师范学院', value: 332},
+                  { name:' 长沙理工大学', value: 269},
+                ]
+              },
+            ]
+          },
+        ]
+      },
+    ]
+  };
+  option = {
+    title: {
+      text: '历年高校分数线树状图',
+      textAlign: 'center',
+      left: '50%',
+      top: '10px',
+      textStyle: {
+        fontSize: 20,
+        fontWeight: 'bold'
+      }
+    },
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'mousemove'
+    },
+    series: [
+      {
+        type: 'tree',
+        id: 0,
+        name: 'tree1',
+        data: [data],
+        top: '10%',
+        left: '8%',
+        bottom: '22%',
+        right: '20%',
+        symbolSize: 7,
+        edgeShape: 'polyline',
+        edgeForkPosition: '63%',
+        initialTreeDepth: 1,
+        lineStyle: {
+          width: 2
+        },
+        label: {
+          backgroundColor: '#fff',
+          position: 'left',
+          verticalAlign: 'middle',
+          align: 'right'
+        },
+        leaves: {
+          label: {
+            position: 'right',
+            verticalAlign: 'middle',
+            align: 'left'
+          }
+        },
+        emphasis: {
+          focus: 'descendant'
+        },
+        expandAndCollapse: true,
+        animationDuration: 550,
+        animationDurationUpdate: 750
+      }
+    ]
+  };
+  myChart.on('click', function (params) {
+    area = params.name
+    if((area=='东北')||(area=='华北')||(area=='西北')||(area=='华东')||(area=='西南')||(area=='华南')||(area=='华中'))
+    parent.getFromIframe1(area)
+    else if((area=='黑龙江')||(area=='吉林')||(area=='辽宁')
+    ||(area=='北京')||(area=='天津')||(area=='山西')||(area=='河北')
+    ||(area=='内蒙古')||(area=='陕西')||(area=='甘肃')||(area=='青海')||(area=='宁夏')
+    ||(area=='新疆')||(area=='上海')||(area=='江苏')||(area=='浙江')||(area=='安徽')
+    ||(area=='福建')||(area=='江西')||(area=='山东')||(area=='四川')||(area=='贵州')
+    ||(area=='云南')||(area=='重庆')||(area=='西藏')||(area=='广东')||(area=='广西')
+    ||(area=='海南')||(area=='河南')||(area=='湖北')||(area=='湖南')){
+      parent.getFromIframe2(area)
+    }
+    // console.log(city);
+    // location.href = 'http://localhost:81/speciality/?string=' + JSON.stringify(city)
+  });
+  option && myChart.setOption(option);
+
+</script>
+</body>
+</html>

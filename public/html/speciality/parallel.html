@@ -1,0 +1,259 @@
+<!--平行图-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #chart-container {
+      margin-top: 50px; /* 调整上边距的值以增加图表和标题之间的距离 */
+    }
+  </style>
+  <script src="../../js/echarts.js"></script>
+
+</head>
+<body>
+<!--<div id="parallel" style="width:600px;height: 500px"></div>-->
+<!--<div id="parallel" style="width:600px;height: 500px; margin-top: 50px;"></div>-->
+<div id="parallel" style="width:600px;height: 500px; margin-top: 20px;"></div>
+
+<script >
+  var chartDom = document.getElementById('parallel');
+  var myChart = echarts.init(chartDom);
+  var option;
+  var data2020=[[]];
+  var data2019=[[]];
+  var data2018=[[]];
+  var data2017=[[]];
+  var all=[[]];
+  var schoolArr=[];
+  var schoolArr_end=[];
+  //为了防止我没法及时拿到要处理的数据，我就每两秒获取一次数据，做一个循环查询
+  // 一百万秒循环上11.57天，我不信有人可以在我这个界面等那么久！
+  setTimeout(function(){
+    var num=0;
+    var handler = setInterval(function(){
+      // console.log("aaa"+(num+1));
+      // console.log(data2020_echarts);
+      // console.log(data2019_echarts);
+      // console.log(data2018_echarts);
+      // console.log(data2017_echarts);
+      let k=0;
+      all=new Array(data2020_echarts.length +data2019_echarts.length
+        +data2018_echarts.length +data2017_echarts.length)
+        .fill(new Array(7));
+      for(var j=0;j<data2020_echarts.length;j++,k++){
+        all[k]=data2020_echarts[j];
+        all[k][6]="2020年";
+        schoolArr[k]=data2020_echarts[j][5];
+      }
+      for(var j=0;j<data2019_echarts.length;j++,k++){
+        all[k]=data2019_echarts[j];
+        all[k][6]="2019年";
+        schoolArr[k]=data2019_echarts[j][5];
+      }
+      for(var j=0;j<data2018_echarts.length;j++,k++){
+        all[k]=data2018_echarts[j];
+        all[k][6]="2018年";
+        schoolArr[k]=data2018_echarts[j][5];
+      }
+      for(var j=0;j<data2017_echarts.length;j++,k++){
+        all[k]=data2017_echarts[j];
+        all[k][6]="2017年";
+        schoolArr[k]=data2017_echarts[j][5];
+      }
+      // console.log(all)
+      option.series.data=all;
+
+      option.title.text=titleCity+titleSpeciality;
+      //数组去重
+      schoolArr_end=unique(schoolArr);
+      option.parallelAxis[5].data=schoolArr_end;
+
+      option && myChart.setOption(option);
+      num++;
+      if(num == 5000000){
+        clearInterval(handler);
+      }
+    },2000);
+  });
+  //数组去重函数
+  function unique(arr) {
+    var newArr = []
+    for (var i = 0; i < arr.length; i++) {
+      if (!newArr.includes(arr[i])) {
+        newArr.push(arr[i])
+      }
+    }
+    return newArr
+  }
+  function getMessageFromParent1(value){
+    // 接受从vue组件中传过来的参数
+    data2020=JSON.parse(`${value}`)
+    let names=[]
+    let scores=[]
+    data2020.forEach((item,index) => {
+      if(index!=0){
+        let key =Object.keys(item)[0];
+        names.push(key);
+        scores.push(item[key]);
+      }
+    })
+    data2020_echarts=new Array(names.length).fill(new Array(6));
+    for(var i=0;i<names.length;i++){
+      data2020_echarts[i]=scores[i];
+      data2020_echarts[i][5]=names[i];
+    }
+    // console.log("aaa"+(i+1));
+    // console.log(data2020_echarts);
+    // console.log(data2019_echarts);
+    // console.log(data2018_echarts);
+    // console.log(data2017_echarts);
+    // // console.log(data2020_echarts);
+    // // console.log(dataSH);
+    // option && myChart.setOption(option,true);
+  }
+  function getMessageFromParent2(value){
+    // 接受从vue组件中传过来的参数
+    data2019=JSON.parse(`${value}`)
+    let names=[]
+    let scores=[]
+    data2019.forEach((item,index) => {
+      if(index!=0){
+        let key =Object.keys(item)[0];
+        names.push(key);
+        scores.push(item[key]);
+      }
+    })
+    data2019_echarts=new Array(names.length).fill(new Array(6));
+    for(var i=0;i<names.length;i++){
+      data2019_echarts[i]=scores[i];
+      data2019_echarts[i][5]=names[i];
+    }
+    // console.log(data2019_echarts);
+  }
+  function getMessageFromParent3(value){
+    // 接受从vue组件中传过来的参数
+    data2018=JSON.parse(`${value}`)
+    let names=[]
+    let scores=[]
+    data2018.forEach((item,index) => {
+      if(index!=0){
+        let key =Object.keys(item)[0];
+        names.push(key);
+        scores.push(item[key]);
+      }
+    })
+    data2018_echarts=new Array(names.length).fill(new Array(6));
+    for(var i=0;i<names.length;i++){
+      data2018_echarts[i]=scores[i];
+      data2018_echarts[i][5]=names[i];
+    }
+    // console.log(data2018_echarts);
+  }
+  function getMessageFromParent4(value){
+    // 接受从vue组件中传过来的参数
+    data2017=JSON.parse(`${value}`)
+    let names=[]
+    let scores=[]
+    data2017.forEach((item,index) => {
+      if(index!=0){
+        let key =Object.keys(item)[0];
+        names.push(key);
+        scores.push(item[key]);
+      }
+    })
+    data2017_echarts=new Array(names.length).fill(new Array(6));
+    for(var i=0;i<names.length;i++){
+      data2017_echarts[i]=scores[i];
+      data2017_echarts[i][5]=names[i];
+    }
+
+  }
+  function getMessageFromParent7(value){
+    // 接受从vue组件中传过来的参数
+    titleCity=JSON.parse(`${value}`)+'省'
+
+
+  }
+  function getMessageFromParent8(value){
+    // 接受从vue组件中传过来的参数
+    titleSpeciality=JSON.parse(`${value}`)+'历年分数线平行图'
+  }
+  var titleSpeciality='某专业历年分数线平行图'
+  var titleCity='某省份'
+  var data2020_echarts=[[]];
+  var data2019_echarts=[[]];
+  var data2018_echarts=[[]];
+  var data2017_echarts=[[]];
+  var lineStyle = {
+    width: 1,
+    opacity: 0.5
+  };
+  option = {
+    title: {
+      text: '某省份某专业历年分数线平行图',
+      left: 'center',
+      top: '0%',
+      textStyle: {
+        fontSize: 20,
+        fontWeight: 'bold'
+      }
+    },
+    grid: {
+      top: '25%', // 调整图表距离顶部的距离
+      bottom: '10%', // 调整图表距离底部的距离
+      containLabel: true
+    },
+    tooltip: {
+      padding: 10,
+      backgroundColor: '#fff',
+      borderColor: '#aaa',
+      borderWidth: 1,
+    },
+    parallelAxis: [
+      { dim: 0, name: '总分', min: 200, max:450 },
+      { dim: 1, name: '外语', min: 20, max: 100 },
+      { dim: 2, name: '政治', min: 20, max: 100 },
+      { dim: 3, name: '专业课1', min: 40, max: 150 },
+      { dim: 4, name: '专业课2', min: 40, max: 150 },
+      {
+        dim: 5,
+        name: '院校',
+        type: 'category',
+        data: [],
+      },
+      {
+        dim: 6,
+        name: '年份',
+        type: 'category',
+        data:[
+          '2020年','2019年','2018年','2017年'
+        ]
+      },
+    ],
+    visualMap: {
+      show: true,
+      min: 250,
+      max: 350,
+      dimension: 0,
+      inRange: {
+        color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
+        // colorAlpha: [0, 1]
+      }
+    },
+    series: {
+      type: 'parallel',
+      lineStyle: {
+        width: 4
+      },
+      data: [[]]
+    }
+  };
+
+
+
+
+</script>
+</body>
+</html>

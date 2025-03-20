@@ -1,0 +1,148 @@
+<!--平行图-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../../js/echarts.js"></script>
+
+</head>
+<body>
+<div id="parallel2" style="width:700px;height: 500px"></div>
+<script>
+  var chartDom = document.getElementById('parallel2');
+  var myChart = echarts.init(chartDom);
+  var option;
+  var schoolArr=[];
+  var data_all=[[]];
+  //为了防止我没法及时拿到要处理的数据，我就每两秒获取一次数据，做一个循环查询
+  // 一百万秒循环上11.57天，我不信有人可以在我这个界面等那么久！
+  setTimeout(function(){
+    var num=0;
+    var handler = setInterval(function(){
+      // console.log("aaa"+(num+1));
+      // option.parallelAxis[5].data=data_university1;
+      // option.parallelAxis[5].data=data_area1;
+      option.parallelAxis[5].data=data_university1;
+      var modifiedArray = data_all.map(function(row) {
+        return row.slice(0, 6).concat(row.slice(7, 8));
+      });
+      // console.log(modifiedArray)
+      option.series.data=modifiedArray;
+      option.title.text=city+'省高校历年分数线平行图';
+      option && myChart.setOption(option);
+      num++;
+      if(num == 5000000){
+        clearInterval(handler);
+      }
+    },2000);
+  });
+  //数组去重函数
+  function unique(arr) {
+    var newArr = []
+    for (var i = 0; i < arr.length; i++) {
+      if (!newArr.includes(arr[i])) {
+        newArr.push(arr[i])
+      }
+    }
+    return newArr
+  }
+  let newdata = [];
+  let data_area=[];
+  const data_year=[];
+  let data_university=[];
+  let data_area1=[];
+  let data_year1=[];
+  let data_university1=[];
+  var city='某';
+  //获取从views/college/index.vue传来的数据
+  function getMessageFromParent5(value1,value2) {
+    // 接受从vue组件中传过来的参数
+    data_all = JSON.parse(`${value1}`)
+    city =JSON.parse(`${value2}`)
+
+    // console.log(data_all)
+    //初始化大学目录
+    data_university=[]
+    for (var i = 0; i < data_all.length; i++) {
+      data_university.push(data_all[i][5]);
+    }
+    //大学目录去重
+    data_university1=unique(data_university)
+
+    //初始化地区目录
+    data_area=[]
+    for (var i = 0; i < data_all.length; i++) {
+      data_area.push(data_all[i][6]);
+    }
+    //地区目录去重
+    data_area1=unique(data_area)
+  }
+  var lineStyle = {
+    width: 1,
+    opacity: 0.5
+  };
+  option = {
+    title: {
+      text: '某省份高校历年分数线平行图',
+      textAlign: 'center',
+      left: '50%',
+      top: '0px',
+      textStyle: {
+        fontSize: 20,
+        fontWeight: 'bold'
+      }
+    },
+    tooltip: {
+      padding: 10,
+      backgroundColor: '#fff',
+      borderColor: '#aaa',
+      borderWidth: 1,
+    },
+    parallelAxis: [
+      { dim: 0, name: '总分', min: 0, max:450 },
+      { dim: 1, name: '外语', min: 0, max: 100 },
+      { dim: 2, name: '政治', min: 0, max: 100 },
+      { dim: 3, name: '专业课1', min: 0, max: 200 },
+      { dim: 4, name: '专业课2', min: 0, max: 150 },
+      {
+        dim: 5,
+        name: '院校',
+        nameGap:200,
+        type: 'category',
+        data: [],
+      },
+      {
+        dim: 6,
+        name: '年份',
+        type: 'category',
+        data:[
+          '2020','2019','2018','2017'
+        ]
+      },
+    ],
+    visualMap: {
+      show: true,
+      min: 250,
+      max: 350,
+      dimension: 0,
+      inRange: {
+        color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
+        // colorAlpha: [0, 1]
+      }
+    },
+    series: {
+      type: 'parallel',
+      lineStyle: {
+        width: 1
+      },
+      data: [[]]
+    }
+  };
+
+
+
+
+</script>
+</body>
+</html>
