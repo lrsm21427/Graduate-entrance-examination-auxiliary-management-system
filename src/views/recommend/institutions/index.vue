@@ -112,7 +112,6 @@
 
     <el-table v-loading="loading" :data="institutionsList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <!-- <el-table-column label="学校的ID" align="center" prop="schoolId" /> -->
       <el-table-column label="省份" align="center" prop="province" />
       <el-table-column label="学校名称" align="center" prop="schoolName" />
       <el-table-column label="学校类型" align="center" prop="type" />
@@ -163,7 +162,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"

@@ -3,7 +3,6 @@
     <iframe id="treeIframe" src="../html/college/tree.html" scrolling="auto" frameborder="0" style="width: 100%;height: 535px;"></iframe>
     <iframe id="parallelIframe2" src="../html/college/parallel2.html" scrolling="auto" frameborder="0" style="width: 50%;height: 600px;"></iframe>
     <iframe id="K-MeansIframe" src="../html/college/K-Means.html" scrolling="auto" frameborder="0" style="width: 50%;height: 600px;"></iframe>
-
   </div>
 
 </template>

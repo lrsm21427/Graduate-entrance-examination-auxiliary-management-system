@@ -13,54 +13,52 @@
 
 </head>
 <body>
-<!--<div id="parallel" style="width:600px;height: 500px"></div>-->
-<!--<div id="parallel" style="width:600px;height: 500px; margin-top: 50px;"></div>-->
-<div id="parallel" style="width:600px;height: 500px; margin-top: 20px;"></div>
+<div id="parallel" style="width:600px;height: 500px;border: #00afff 1px solid"></div>
 
 <script >
   var chartDom = document.getElementById('parallel');
   var myChart = echarts.init(chartDom);
   var option;
+  var data2023=[[]];
+  var data2022=[[]];
+  var data2021=[[]];
   var data2020=[[]];
-  var data2019=[[]];
-  var data2018=[[]];
-  var data2017=[[]];
   var all=[[]];
   var schoolArr=[];
   var schoolArr_end=[];
   //为了防止我没法及时拿到要处理的数据，我就每两秒获取一次数据，做一个循环查询
-  // 一百万秒循环上11.57天，我不信有人可以在我这个界面等那么久！
+
   setTimeout(function(){
     var num=0;
     var handler = setInterval(function(){
       // console.log("aaa"+(num+1));
+      // console.log(data2023_echarts);
+      // console.log(data2022_echarts);
+      // console.log(data2021_echarts);
       // console.log(data2020_echarts);
-      // console.log(data2019_echarts);
-      // console.log(data2018_echarts);
-      // console.log(data2017_echarts);
       let k=0;
-      all=new Array(data2020_echarts.length +data2019_echarts.length
-        +data2018_echarts.length +data2017_echarts.length)
+      all=new Array(data2023_echarts.length +data2022_echarts.length
+        +data2021_echarts.length +data2020_echarts.length)
         .fill(new Array(7));
+      for(var j=0;j<data2023_echarts.length;j++,k++){
+        all[k]=data2023_echarts[j];
+        all[k][6]="2023年";
+        schoolArr[k]=data2023_echarts[j][5];
+      }
+      for(var j=0;j<data2022_echarts.length;j++,k++){
+        all[k]=data2022_echarts[j];
+        all[k][6]="2022年";
+        schoolArr[k]=data2022_echarts[j][5];
+      }
+      for(var j=0;j<data2021_echarts.length;j++,k++){
+        all[k]=data2021_echarts[j];
+        all[k][6]="2021年";
+        schoolArr[k]=data2021_echarts[j][5];
+      }
       for(var j=0;j<data2020_echarts.length;j++,k++){
         all[k]=data2020_echarts[j];
         all[k][6]="2020年";
         schoolArr[k]=data2020_echarts[j][5];
-      }
-      for(var j=0;j<data2019_echarts.length;j++,k++){
-        all[k]=data2019_echarts[j];
-        all[k][6]="2019年";
-        schoolArr[k]=data2019_echarts[j][5];
-      }
-      for(var j=0;j<data2018_echarts.length;j++,k++){
-        all[k]=data2018_echarts[j];
-        all[k][6]="2018年";
-        schoolArr[k]=data2018_echarts[j][5];
-      }
-      for(var j=0;j<data2017_echarts.length;j++,k++){
-        all[k]=data2017_echarts[j];
-        all[k][6]="2017年";
-        schoolArr[k]=data2017_echarts[j][5];
       }
       // console.log(all)
       option.series.data=all;
@@ -89,6 +87,70 @@
   }
   function getMessageFromParent1(value){
     // 接受从vue组件中传过来的参数
+    data2023=JSON.parse(`${value}`)
+    let names=[]
+    let scores=[]
+    data2023.forEach((item,index) => {
+      if(index!=0){
+        let key =Object.keys(item)[0];
+        names.push(key);
+        scores.push(item[key]);
+      }
+    })
+    data2023_echarts=new Array(names.length).fill(new Array(6));
+    for(var i=0;i<names.length;i++){
+      data2023_echarts[i]=scores[i];
+      data2023_echarts[i][5]=names[i];
+    }
+    // console.log("aaa"+(i+1));
+    // console.log(data2023_echarts);
+    // console.log(data2022_echarts);
+    // console.log(data2021_echarts);
+    // console.log(data2020_echarts);
+    // // console.log(data2023_echarts);
+    // // console.log(dataSH);
+    // option && myChart.setOption(option,true);
+  }
+  function getMessageFromParent2(value){
+    // 接受从vue组件中传过来的参数
+    data2022=JSON.parse(`${value}`)
+    let names=[]
+    let scores=[]
+    data2022.forEach((item,index) => {
+      if(index!=0){
+        let key =Object.keys(item)[0];
+        names.push(key);
+        scores.push(item[key]);
+      }
+    })
+    data2022_echarts=new Array(names.length).fill(new Array(6));
+    for(var i=0;i<names.length;i++){
+      data2022_echarts[i]=scores[i];
+      data2022_echarts[i][5]=names[i];
+    }
+    // console.log(data2022_echarts);
+  }
+  function getMessageFromParent3(value){
+    // 接受从vue组件中传过来的参数
+    data2021=JSON.parse(`${value}`)
+    let names=[]
+    let scores=[]
+    data2021.forEach((item,index) => {
+      if(index!=0){
+        let key =Object.keys(item)[0];
+        names.push(key);
+        scores.push(item[key]);
+      }
+    })
+    data2021_echarts=new Array(names.length).fill(new Array(6));
+    for(var i=0;i<names.length;i++){
+      data2021_echarts[i]=scores[i];
+      data2021_echarts[i][5]=names[i];
+    }
+    // console.log(data2021_echarts);
+  }
+  function getMessageFromParent4(value){
+    // 接受从vue组件中传过来的参数
     data2020=JSON.parse(`${value}`)
     let names=[]
     let scores=[]
@@ -104,70 +166,6 @@
       data2020_echarts[i]=scores[i];
       data2020_echarts[i][5]=names[i];
     }
-    // console.log("aaa"+(i+1));
-    // console.log(data2020_echarts);
-    // console.log(data2019_echarts);
-    // console.log(data2018_echarts);
-    // console.log(data2017_echarts);
-    // // console.log(data2020_echarts);
-    // // console.log(dataSH);
-    // option && myChart.setOption(option,true);
-  }
-  function getMessageFromParent2(value){
-    // 接受从vue组件中传过来的参数
-    data2019=JSON.parse(`${value}`)
-    let names=[]
-    let scores=[]
-    data2019.forEach((item,index) => {
-      if(index!=0){
-        let key =Object.keys(item)[0];
-        names.push(key);
-        scores.push(item[key]);
-      }
-    })
-    data2019_echarts=new Array(names.length).fill(new Array(6));
-    for(var i=0;i<names.length;i++){
-      data2019_echarts[i]=scores[i];
-      data2019_echarts[i][5]=names[i];
-    }
-    // console.log(data2019_echarts);
-  }
-  function getMessageFromParent3(value){
-    // 接受从vue组件中传过来的参数
-    data2018=JSON.parse(`${value}`)
-    let names=[]
-    let scores=[]
-    data2018.forEach((item,index) => {
-      if(index!=0){
-        let key =Object.keys(item)[0];
-        names.push(key);
-        scores.push(item[key]);
-      }
-    })
-    data2018_echarts=new Array(names.length).fill(new Array(6));
-    for(var i=0;i<names.length;i++){
-      data2018_echarts[i]=scores[i];
-      data2018_echarts[i][5]=names[i];
-    }
-    // console.log(data2018_echarts);
-  }
-  function getMessageFromParent4(value){
-    // 接受从vue组件中传过来的参数
-    data2017=JSON.parse(`${value}`)
-    let names=[]
-    let scores=[]
-    data2017.forEach((item,index) => {
-      if(index!=0){
-        let key =Object.keys(item)[0];
-        names.push(key);
-        scores.push(item[key]);
-      }
-    })
-    data2017_echarts=new Array(names.length).fill(new Array(6));
-    for(var i=0;i<names.length;i++){
-      data2017_echarts[i]=scores[i];
-      data2017_echarts[i][5]=names[i];
-    }
 
   }
   function getMessageFromParent7(value){
@@ -182,10 +180,10 @@
   }
   var titleSpeciality='某专业历年分数线平行图'
   var titleCity='某省份'
+  var data2023_echarts=[[]];
+  var data2022_echarts=[[]];
+  var data2021_echarts=[[]];
   var data2020_echarts=[[]];
-  var data2019_echarts=[[]];
-  var data2018_echarts=[[]];
-  var data2017_echarts=[[]];
   var lineStyle = {
     width: 1,
     opacity: 0.5
@@ -228,7 +226,7 @@
         name: '年份',
         type: 'category',
         data:[
-          '2020年','2019年','2018年','2017年'
+          '2023年','2022年','2021年','2020年'
         ]
       },
     ],

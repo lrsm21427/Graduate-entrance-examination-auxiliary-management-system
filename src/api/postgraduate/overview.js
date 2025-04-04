@@ -12,7 +12,7 @@ export function majorName(name) {
 //    http://localhost/dev-api/postgraduate/postgraduateexam/average/山东/软件工程
 //    查询每年该省院校平均分数
 //    分数分别代表总分，英语，政治，专业课1，专业课2和科目数，科目数可不看
-//    "data":{"2017":[318,41,41,71,71,3],"2018":[320,45,45,80,80,2],"2019":[300,44,44,66,66,3],"2020":[285,42,42,65,65,13]}
+//    "data":{"2020":[318,41,41,71,71,3],"2021":[320,45,45,80,80,2],"2022":[300,44,44,66,66,3],"2023":[285,42,42,65,65,13]}
 export function average_area(area,major) {
     return request({
       url: '/postgraduate/postgraduateexam/average/'+area+"/"+major,
@@ -20,7 +20,7 @@ export function average_area(area,major) {
     })
   }
 
-//    http://localhost/dev-api/postgraduate/postgraduateexam/average/山东/软件工程/2020
+//    http://localhost/dev-api/postgraduate/postgraduateexam/average/山东/软件工程/2023
 //    在average/后加省份，专业和年份，会返回该省份的高校该年份该专业的分数
 //    分数分别代表总分，英语，政治，专业课1，专业课2
 //    "data":[{"聊城大学":3,"中国海洋大学":1,"山东大学":9},

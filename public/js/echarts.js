@@ -26043,7 +26043,7 @@
       },
       minorSplitLine: {
         lineStyle: {
-          color: '#20203B'
+          color: '#20233B'
         }
       }
     };
@@ -33397,7 +33397,7 @@
         var index;
         var needCollect = this._needCollect; // The value of category dim can be the index of the given category set.
         // This feature is only supported when !needCollect, because we should
-        // consider a common case: a value is 2017, which is a number but is
+        // consider a common case: a value is 2020, which is a number but is
         // expected to be tread as a category. This case usually happen in dataset,
         // where it happent to be no need of the index feature.
 
@@ -78473,7 +78473,7 @@
        * range info
        *
        * @private
-       * @param  {Array} range range ['2017-01-01', '2017-07-08']
+       * @param  {Array} range range ['2020-01-01', '2020-07-08']
        *  If range[0] > range[1], they will not be reversed.
        * @return {Object}       obj
        */

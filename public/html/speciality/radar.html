@@ -21,19 +21,19 @@
     option.series.data = [];
 
     var handler = setInterval(function(){
-      for(var i=0;i<data2020_echarts.length;i++){
-        option.legend.data[i]=data2020_echarts[i][5]
-        // option.series.data[i].value[0]=data2020_echarts[i][0]
-        // option.series.data[i].value[1]=data2020_echarts[i][1]
-        // option.series.data[i].value[2]=data2020_echarts[i][2]
-        // option.series.data[i].value[3]=data2020_echarts[i][3]
-        // option.series.data[i].value[4]=data2020_echarts[i][4]
-        // option.series.data[i].name=data2020_echarts[i][5]
+      for(var i=0;i<data2023_echarts.length;i++){
+        option.legend.data[i]=data2023_echarts[i][5]
+        // option.series.data[i].value[0]=data2023_echarts[i][0]
+        // option.series.data[i].value[1]=data2023_echarts[i][1]
+        // option.series.data[i].value[2]=data2023_echarts[i][2]
+        // option.series.data[i].value[3]=data2023_echarts[i][3]
+        // option.series.data[i].value[4]=data2023_echarts[i][4]
+        // option.series.data[i].name=data2023_echarts[i][5]
         option.series.data.push({
-          value: [data2020_echarts[i][0], data2020_echarts[i][1],
-            data2020_echarts[i][2],data2020_echarts[i][3],
-            data2020_echarts[i][4]],
-          name: data2020_echarts[i][5]
+          value: [data2023_echarts[i][0], data2023_echarts[i][1],
+            data2023_echarts[i][2],data2023_echarts[i][3],
+            data2023_echarts[i][4]],
+          name: data2023_echarts[i][5]
         });
       }
       // console.log(option.legend.data)
@@ -48,27 +48,27 @@
     },2000);
   });
 
-  function getMessageFromParent2020(value){
+  function getMessageFromParent2023(value){
     // 接受从vue组件中传过来的参数
-    data2020=JSON.parse(`${value}`)
+    data2023=JSON.parse(`${value}`)
     let names=[]
     let scores=[]
-    data2020.forEach((item,index) => {
+    data2023.forEach((item,index) => {
       if(index!=0){
         let key =Object.keys(item)[0];
         names.push(key);
         scores.push(item[key]);
       }
     })
-    data2020_echarts=new Array(names.length).fill(new Array(6));
+    data2023_echarts=new Array(names.length).fill(new Array(6));
     for(var i=0;i<names.length;i++){
-      data2020_echarts[i]=scores[i];
-      data2020_echarts[i][5]=names[i];
+      data2023_echarts[i]=scores[i];
+      data2023_echarts[i][5]=names[i];
     }
-    // console.log(data2020_echarts);
+    // console.log(data2023_echarts);
   }
-  var data2020=[[]]
-  var data2020_echarts=[[]]
+  var data2023=[[]]
+  var data2023_echarts=[[]]
   option = {
     // title: {
     //   text: 'Basic Radar Chart'

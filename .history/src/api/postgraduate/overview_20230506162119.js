@@ -9,7 +9,7 @@ export function majorName(name) {
     })
   }
 
-//    http://localhost/dev-api/postgraduate/postgraduateexam/average/山东/软件工程/2020
+//    http://localhost/dev-api/postgraduate/postgraduateexam/average/山东/软件工程/2023
 //    在average/后加省份，专业和年份，会返回该省份的高校该年份该专业的分数
 //    分数分别代表总分，英语，政治，专业课1，专业课2
 //    "data":[{"聊城大学":3,"中国海洋大学":1,"山东大学":9},{"聊城大学":[264,37,37,56,56]},{"中国海洋大学":[305,37,37,56,56]},{"山东大学":[290,45,45,70,70]}]
@@ -50,9 +50,9 @@ export function areaTreeScore(allArea) {
 
 //    http://localhost/dev-api/postgraduate/postgraduateexam/AreaYearScore/东北
 //    areaTreeScore/+地区，只能单个地区
-//    返回数据格式data":[{"黑龙江":{"2017":{"哈尔滨工业大学":[327,51,48,83,80,220],"东北农业大学":[270,36,35,55,52,67]},
-//                              "2018":{...},"2019":{...}},
-//                      "辽宁":{"2017":{...},"2018":{...},"2019":{...}}}]
+//    返回数据格式data":[{"黑龙江":{"2020":{"哈尔滨工业大学":[327,51,48,83,80,220],"东北农业大学":[270,36,35,55,52,67]},
+//                              "2021":{...},"2022":{...}},
+//                      "辽宁":{"2020":{...},"2021":{...},"2022":{...}}}]
 //    数组内共五个值，分别代表总分，英语，政治，专业课1，专业课2和该学校专业数量
 export function AreaYearScore(allArea) {
     return request({

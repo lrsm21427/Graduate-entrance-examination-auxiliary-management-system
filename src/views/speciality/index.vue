@@ -47,10 +47,10 @@ export default {
       //检索的专业列表
       listMajor:[],
       //每年该省院校该专业平均分数
-      listAverageArea2017:[],
-      listAverageArea2018:[],
-      listAverageArea2019:[],
       listAverageArea2020:[],
+      listAverageArea2021:[],
+      listAverageArea2022:[],
+      listAverageArea2023:[],
       //考研历年具体分数信息表格数据
       listPostgraduateexam:[],
       // 显示搜索条件
@@ -86,10 +86,10 @@ export default {
         // console.log(response);
         this.majorNum= response.data.length;
         this.getAverageArea();
-        this.getAverageSchool2017();
-        this.getAverageSchool2018();
-        this.getAverageSchool2019();
         this.getAverageSchool2020();
+        this.getAverageSchool2021();
+        this.getAverageSchool2022();
+        this.getAverageSchool2023();
         // this.sentToIframe2();
         // console.log(this.majorNum);
         // console.log(this.city);
@@ -106,18 +106,18 @@ export default {
     //   );
     // },
     // 查询该年该省院校该专业院校分数,并保存
-    getAverageSchool2020() {
+    getAverageSchool2023() {
       // 查询该年该省院校该专业院校分数
-      //2020年的
-      average_school(this.city,this.queryParams.select_speciality,"2020").then(response => {
+      //2023年的
+      average_school(this.city,this.queryParams.select_speciality,"2023").then(response => {
         // console.log(response);
         // console.log(response.data[0]);
         let childFrameObj1 = document.getElementById("parallelIframe");
         childFrameObj1.contentWindow.getMessageFromParent1(
           JSON.stringify(response.data)
         );
-        // let childFrameObj2020 = document.getElementById("Radar");
-        // childFrameObj2020.contentWindow.getMessageFromParent2020(
+        // let childFrameObj2023 = document.getElementById("Radar");
+        // childFrameObj2023.contentWindow.getMessageFromParent2023(
         //   JSON.stringify(response.data)
         // );
 
@@ -132,9 +132,9 @@ export default {
       })
 
     },
-    getAverageSchool2019() {
-      //2019年的
-      average_school(this.city,this.queryParams.select_speciality,"2019").then(response => {
+    getAverageSchool2022() {
+      //2022年的
+      average_school(this.city,this.queryParams.select_speciality,"2022").then(response => {
         // console.log(response);
         // console.log(response.data[0]);
         let childFrameObj2 = document.getElementById("parallelIframe");
@@ -144,9 +144,9 @@ export default {
       })
 
     },
-    getAverageSchool2018() {
-      //2018年的
-      average_school(this.city,this.queryParams.select_speciality,"2018").then(response => {
+    getAverageSchool2021() {
+      //2021年的
+      average_school(this.city,this.queryParams.select_speciality,"2021").then(response => {
         // console.log(response);
         // console.log(response.data[0]);
         let childFrameObj3 = document.getElementById("parallelIframe");
@@ -156,9 +156,9 @@ export default {
       })
 
     },
-    getAverageSchool2017() {
-      //2017年的
-      average_school(this.city,this.queryParams.select_speciality,"2017").then(response => {
+    getAverageSchool2020() {
+      //2020年的
+      average_school(this.city,this.queryParams.select_speciality,"2020").then(response => {
         // console.log(response);
         // console.log(response.data[0]);
         let childFrameObj4 = document.getElementById("parallelIframe");
@@ -173,10 +173,10 @@ export default {
       // console.log(sp1)
       average_area(this.city,this.queryParams.select_speciality).then(response => {
         // console.log(response.data);
-        this.listAverageArea2017 = response.data[2017];
-        this.listAverageArea2018 = response.data[2018];
-        this.listAverageArea2019 = response.data[2019];
         this.listAverageArea2020 = response.data[2020];
+        this.listAverageArea2021 = response.data[2021];
+        this.listAverageArea2022 = response.data[2022];
+        this.listAverageArea2023 = response.data[2023];
         this.sentToIframe();
       })
 
@@ -187,10 +187,10 @@ export default {
       let childFrameObj = document.getElementById("mixed_bar_lineIframe");
       // console.log("childFrameObj", childFrameObj);
       childFrameObj.contentWindow.getMessageFromParent(
-        this.listAverageArea2017,
-        this.listAverageArea2018,
-        this.listAverageArea2019,
         this.listAverageArea2020,
+        this.listAverageArea2021,
+        this.listAverageArea2022,
+        this.listAverageArea2023,
         JSON.stringify(this.city),
         JSON.stringify(this.queryParams.select_speciality)
 

@@ -294,7 +294,7 @@ export default {
         console.log(response);
       })
       // 查询该年该省院校该专业院校分数
-      average_school("山东","软件工程","2020").then(response => {
+      average_school("山东","软件工程","2023").then(response => {
         console.log(response);
       })
       // 地图，返回中国各省与各省包含该专业的大学
@@ -313,7 +313,7 @@ export default {
       AreaYearScore("东北").then(response => {
         console.log(response);
       })
-      // 聚类 
+      // 聚类
       cluster("985&211").then(response => {
         console.log(response);
       })

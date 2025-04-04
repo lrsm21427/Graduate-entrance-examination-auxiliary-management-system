@@ -13,33 +13,33 @@
   var chartDom = document.getElementById('mixed_bar_line');
   var myChart = echarts.init(chartDom);
   var option;
-  var arr2017=[],arr2018=[],arr2019=[],arr2020=[];
-  var data2017=['38', '41', '41', '71', '71'],data2018=[],data2019=[],data2020=[];
+  var arr2020=[],arr2021=[],arr2022=[],arr2023=[];
+  var data2020=['38', '41', '41', '71', '71'],data2021=[],data2022=[],data2023=[];
   function getMessageFromParent(value1,value2,value3,value4,value5,value6){
     // 接受从vue组件中传过来的参数
     // console.log(`我接收到parent传过来的参数了：${value1}`)
     // console.log(`我接收到parent传过来的参数了：${value2}`)
     // console.log(`我接收到parent传过来的参数了：${value3}`)
     // console.log(`我接收到parent传过来的参数了：${value4}`)
-    arr2017=`${value1}`
-    arr2018=`${value2}`
-    arr2019=`${value3}`
-    arr2020=`${value4}`
+    arr2020=`${value1}`
+    arr2021=`${value2}`
+    arr2022=`${value3}`
+    arr2023=`${value4}`
     titleCity=JSON.parse(`${value5}`)+'省'
     titleSpeciality=JSON.parse(`${value6}`)+'历年分数线折线柱状混合图'
-    data2017 = arr2017.split(',')
-    // console.log(data2017)
-    data2018 = arr2018.split(',')
-    // console.log(data2018)
-    data2019 = arr2019.split(',')
-    // console.log(data2019)
     data2020 = arr2020.split(',')
     // console.log(data2020)
+    data2021 = arr2021.split(',')
+    // console.log(data2021)
+    data2022 = arr2022.split(',')
+    // console.log(data2022)
+    data2023 = arr2023.split(',')
+    // console.log(data2023)
     for(var i=0;i<5;i++){
-      option.series[i].data[0]=Number(data2017[i])
-      option.series[i].data[1]=Number(data2018[i])
-      option.series[i].data[2]=Number(data2019[i])
-      option.series[i].data[3]=Number(data2020[i])
+      option.series[i].data[0]=Number(data2020[i])
+      option.series[i].data[1]=Number(data2021[i])
+      option.series[i].data[2]=Number(data2022[i])
+      option.series[i].data[3]=Number(data2023[i])
     }
     option.series[5].data=option.series[1].data
     option.series[6].data=option.series[2].data
@@ -98,7 +98,7 @@
     xAxis: [
       {
         type: 'category',
-        data: ['2017年', '2018年', '2019年', '2020年'],
+        data: ['2020年', '2021年', '2022年', '2023年'],
         axisPointer: {
           type: 'shadow'
         }
@@ -248,7 +248,7 @@
   };
 
 
-  // let chart = echarts.init(document.getElementById(data2017));
+  // let chart = echarts.init(document.getElementById(data2020));
   // chart.clear();
   // option && myChart.setOption(option);
 

@@ -520,7 +520,7 @@ export default {
 				return 1;
 			}
 		},
-		// 格式化日期格式如：2017-9-19 18:04:33
+		// 格式化日期格式如：2020-9-19 18:04:33
 		formatDate(value, type) {
 			// 计算日期相关值
 			let time = typeof value == 'number' ? new Date(value) : value;
