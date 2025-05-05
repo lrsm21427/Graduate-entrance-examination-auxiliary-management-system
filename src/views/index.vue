@@ -1,6 +1,6 @@
 <template>
   <div class="app-container home">
-    <img src="../assets/images/1169997.png" alt="Logo" class="logo">
+    <img src="../assets/images/index.jpg" alt="Logo" class="logo">
     <br>
     <h1 class="title" style="color:#767676">欢迎来到考研志愿填报辅助系统</h1>
     <p class="description" style="color:#454343">
@@ -39,10 +39,11 @@ export default {
 }
 
 .logo {
-  width: auto;
-  height: auto;
+  width: 1400px;
+  height: 450px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  object-fit: cover;
 }
 
 .title {
