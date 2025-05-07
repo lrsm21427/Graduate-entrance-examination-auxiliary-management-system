@@ -4,11 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', Arial, sans-serif;
+      width: 80%;
+      margin: 0;
+      padding-left: 10%;
+    }
+    #parallel2 {
+      //width: 90%;
+      height: 500px;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background: white;
+      //padding: 10px;
+      transition: all 0.3s ease;
+    }
+    #parallel2:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      font-size: 18px;
+      color: #666;
+    }
+  </style>
   <script src="../../js/echarts.js"></script>
 
 </head>
 <body>
-<div id="parallel2" style="width:700px;height: 500px;"></div>
+<div id="parallel2">
+  <div class="loading">数据加载中...</div>
+</div>
 <script>
   var chartDom = document.getElementById('parallel2');
   var myChart = echarts.init(chartDom);
@@ -19,9 +50,6 @@
   setTimeout(function(){
     var num=0;
     var handler = setInterval(function(){
-      // console.log("aaa"+(num+1));
-      // option.parallelAxis[5].data=data_university1;
-      // option.parallelAxis[5].data=data_area1;
       option.parallelAxis[5].data=data_university1;
       var modifiedArray = data_all.map(function(row) {
         return row.slice(0, 6).concat(row.slice(7, 8));
@@ -93,6 +121,18 @@
       }
     },
     tooltip: {
+      trigger: 'item',
+      formatter: function(params) {
+        var data = params.data;
+        return `
+            <div style="font-weight:bold;margin-bottom:5px;">${data[5]} - ${data[6]}</div>
+            <div>总分: ${data[0]}</div>
+            <div>外语: ${data[1]}</div>
+            <div>政治: ${data[2]}</div>
+            <div>专业课1: ${data[3]}</div>
+            <div>专业课2: ${data[4]}</div>
+          `;
+      },
       padding: 10,
       backgroundColor: '#fff',
       borderColor: '#aaa',
@@ -123,24 +163,26 @@
     visualMap: {
       show: true,
       min: 250,
-      max: 350,
+      max: 450,
       dimension: 0,
       inRange: {
         color: ['#d94e5d', '#eac736', '#50a3ba'].reverse()
-        // colorAlpha: [0, 1]
-      }
+      },
+      textStyle: {
+        color: '#666'
+      },
+      calculable: true,
+      hoverLink: false
     },
     series: {
       type: 'parallel',
       lineStyle: {
         width: 1
       },
-      data: [[]]
+      data: [[]],
+      smooth: true,
     }
   };
-
-
-
 
 </script>
 </body>
