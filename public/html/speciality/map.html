@@ -1,22 +1,46 @@
-<!--中国地图-->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>ECharts</title>
-  <!-- 引入刚刚下载的 ECharts 文件 -->
+  <title>中国地图</title>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', Arial, sans-serif;
+      width: 80%;
+      margin: 0;
+      padding-left: 10%;
+      padding-top: 5%;
+    }
+    #mainMap {
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+    #mainMap:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+  </style>
   <script src="../../js/echarts.js"></script>
   <script src="../../map/china.js"></script>
-<!--  <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.0&type=webgl&ak=X3SV80pLT7rGUfyIFoBs81kTXpPwYsj0"></script>-->
-
 </head>
 <body>
-<div id="mainMap" style="width:600px;height: 500px;border: #00afff 1px solid"></div>
+<div id="mainMap" style="width:100%;height: 500px;"></div>
 <script type="text/javascript">
-  var myMap=echarts.init(document.getElementById('mainMap'));
-  var myData = []; //地图data数据
-  var city=null;
-  var option={
+  var myMap = echarts.init(document.getElementById('mainMap'));
+  var city = '四川'; // 默认选中四川
+
+  // 准备数据：突出显示四川省
+  var data = [
+    {name: '四川', selected: true, itemStyle: {
+        areaColor: '#c23531',
+        borderColor: '#fff',
+        borderWidth: 1
+      }}
+  ];
+
+  var option = {
     title: {
       text: '在中国地图中选定相关省份',
       textAlign: 'center',
@@ -27,22 +51,67 @@
         fontWeight: 'bold'
       }
     },
-    series:[{
-      type:'map',
-      map:'china'
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}'
+    },
+    visualMap: {
+      min: 0,
+      max: 1,
+      show: false,
+      inRange: {
+        color: ['#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695']
+      }
+    },
+    series: [{
+      name: '中国地图',
+      type: 'map',
+      map: 'china',
+      roam: true,
+      scaleLimit: {
+        min: 1,
+        max: 3
+      },
+      label: {
+        show: true,
+        color: '#333'
+      },
+      emphasis: {
+        label: {
+          color: '#fff'
+        },
+        itemStyle: {
+          areaColor: '#c23531'
+        }
+      },
+      data: data,
+      selectedMode: 'single'
     }]
-  }
+  };
 
   myMap.setOption(option);
-  //联动：点击地图上的省份区块信息
-  myMap.on('click', function (params) {
-    city = params.name
-    parent.getFromIframe(city)
-    // console.log(city);
-    // location.href = 'http://localhost:81/speciality/?string=' + JSON.stringify(city)
+
+  // 默认选中四川并通知父窗口
+  parent.getFromIframe(city);
+
+  // 点击事件
+  myMap.on('click', function(params) {
+    city = params.name;
+    parent.getFromIframe(city);
+
+    // 更新选中状态
+    myMap.setOption({
+      series: [{
+        data: [{
+          name: city,
+          selected: true,
+          itemStyle: {
+            areaColor: '#c23531'
+          }
+        }]
+      }]
+    });
   });
 </script>
-
-
 </body>
 </html>

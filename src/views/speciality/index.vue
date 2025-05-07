@@ -19,9 +19,15 @@
 
     </el-form>
     <div>
-      <iframe id="mapIframe" src="../html/speciality/map.html" ref="map_ref" scrolling="auto" frameborder="0" style="width: 50%;height: 600px;"></iframe>
-      <iframe id="parallelIframe" src="../html/speciality/parallel.html" scrolling="auto" frameborder="0" style="width: 50%;height: 600px;"></iframe>
-      <iframe id="mixed_bar_lineIframe" src="../html/speciality/mixed_bar_line.html" ref="mixed_bar_line_ref" scrolling="auto" frameborder="0" style="width: 100%;height: 535px;"></iframe>
+      <div style="display: flex;flex-direction: column;">
+        <div>
+          <iframe id="mapIframe" src="../html/speciality/map.html" ref="map_ref" scrolling="auto" frameborder="0" style="width: 50%;height: 650px;"></iframe>
+          <iframe id="parallelIframe" src="../html/speciality/parallel.html" scrolling="auto" frameborder="0" style="width: 50%;height: 650px;"></iframe>
+        </div>
+        <div>
+          <iframe id="mixed_bar_lineIframe" src="../html/speciality/mixed_bar_line.html" ref="mixed_bar_line_ref" scrolling="auto" frameborder="0" style="width: 100%;height: 650px;"></iframe>
+        </div>
+      </div>
 <!--      <iframe id="Radar" src="../html/speciality/radar.html" ref="radar" scrolling="auto" frameborder="0" style="width: 720px;height: 535px;"></iframe>-->
     </div>
 
@@ -59,7 +65,7 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        select_speciality: null,
+        select_speciality: "计算机科学与技术",
       },
     }
   },
@@ -69,7 +75,8 @@ export default {
   created() {
     window.getFromIframe = this.getFromIframe; //把vue实例中的方法引用给window对象
     // console.log(this.$refs.map_ref.obj)
-
+    this.city = "四川";
+    this.handleQuery();
   },
   mounted() {},
   methods: {
@@ -81,6 +88,8 @@ export default {
     //获取专业名称，调用getAverageArea()
     getMajorName(){
       this.loading = true;
+      const currentCity = this.city || "四川";
+
       majorName(this.queryParams.select_speciality).then(response => {
         this.listMajor=response.data;
         // console.log(response);

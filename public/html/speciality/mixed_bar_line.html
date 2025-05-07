@@ -1,118 +1,175 @@
-<!--折线柱状混合图-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>分数线分析图</title>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', Arial, sans-serif;
+      width: 90%;
+      margin: 0;
+      padding-left: 5%;
+      padding-top: 1%;
+    }
+    #mixed_bar_line {
+      height: 500px;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+    #mixed_bar_line:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+  </style>
   <script src="../../js/echarts.js"></script>
 </head>
 <body>
-<!--<div id="mixed_bar_line" style="width:1500px;height: 500px"></div>-->
-<div id="mixed_bar_line" style="width:1400px;height: 500px"></div>
+<div id="mixed_bar_line"></div>
 <script>
   var chartDom = document.getElementById('mixed_bar_line');
   var myChart = echarts.init(chartDom);
   var option;
-  var arr2020=[],arr2021=[],arr2022=[],arr2023=[];
-  var data2020=['38', '41', '41', '71', '71'],data2021=[],data2022=[],data2023=[];
-  function getMessageFromParent(value1,value2,value3,value4,value5,value6){
-    // 接受从vue组件中传过来的参数
-    // console.log(`我接收到parent传过来的参数了：${value1}`)
-    // console.log(`我接收到parent传过来的参数了：${value2}`)
-    // console.log(`我接收到parent传过来的参数了：${value3}`)
-    // console.log(`我接收到parent传过来的参数了：${value4}`)
-    arr2020=`${value1}`
-    arr2021=`${value2}`
-    arr2022=`${value3}`
-    arr2023=`${value4}`
-    titleCity=JSON.parse(`${value5}`)+'省'
-    titleSpeciality=JSON.parse(`${value6}`)+'历年分数线折线柱状混合图'
-    data2020 = arr2020.split(',')
-    // console.log(data2020)
-    data2021 = arr2021.split(',')
-    // console.log(data2021)
-    data2022 = arr2022.split(',')
-    // console.log(data2022)
-    data2023 = arr2023.split(',')
-    // console.log(data2023)
-    for(var i=0;i<5;i++){
-      option.series[i].data[0]=Number(data2020[i])
-      option.series[i].data[1]=Number(data2021[i])
-      option.series[i].data[2]=Number(data2022[i])
-      option.series[i].data[3]=Number(data2023[i])
+  var arr2020=[], arr2021=[], arr2022=[], arr2023=[];
+  var data2020=['38', '41', '41', '71', '71'], data2021=[], data2022=[], data2023=[];
+
+  // 颜色配置
+  var colorPalette = [
+    '#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de',
+    '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'
+  ];
+
+  function getMessageFromParent(value1, value2, value3, value4, value5, value6) {
+    arr2020 = `${value1}`;
+    arr2021 = `${value2}`;
+    arr2022 = `${value3}`;
+    arr2023 = `${value4}`;
+    titleCity = JSON.parse(`${value5}`) + '省';
+    titleSpeciality = JSON.parse(`${value6}`) + '历年分数线分析';
+
+    data2020 = arr2020.split(',');
+    data2021 = arr2021.split(',');
+    data2022 = arr2022.split(',');
+    data2023 = arr2023.split(',');
+
+    for(var i = 0; i < 5; i++) {
+      option.series[i].data[0] = Number(data2020[i]);
+      option.series[i].data[1] = Number(data2021[i]);
+      option.series[i].data[2] = Number(data2022[i]);
+      option.series[i].data[3] = Number(data2023[i]);
     }
-    option.series[5].data=option.series[1].data
-    option.series[6].data=option.series[2].data
-    option.series[7].data=option.series[3].data
-    option.series[8].data=option.series[4].data
-    // console.log(option)
-    option.title.text=titleCity+titleSpeciality;
-    option && myChart.setOption(option,true);
-    // mychart()
+
+    option.series[5].data = option.series[1].data;
+    option.series[6].data = option.series[2].data;
+    option.series[7].data = option.series[3].data;
+    option.series[8].data = option.series[4].data;
+
+    option.title.text = titleCity + titleSpeciality;
+    option && myChart.setOption(option, true);
   }
-  var titleSpeciality='某专业历年分数线折线柱状混合图'
-  var titleCity='某省份'
+
+  var titleSpeciality = '某专业历年分数线分析';
+  var titleCity = '某省份';
+
   option = {
     title: {
-      text: '某省份某专业历年分数线折线柱状混合图',
+      text: '某省份某专业历年分数线分析',
       left: 'center',
-      top: '0%',
+      // top: 15,
       textStyle: {
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#333'
+      },
+      subtext: '柱状图显示总分，折线图显示各科目分数',
+      subtextStyle: {
+        fontSize: 14,
+        color: '#666'
       }
     },
-    grid:{
-      top:"27%",
-      left:"10%",
-      right:"0%",
-      bottom:"5%"
+    grid: {
+      top: 100,
+      left: 60,
+      right: 60,
+      bottom: 60,
+      containLabel: true
     },
-    //图表浮窗的设置
     tooltip: {
       trigger: 'axis',
       axisPointer: {
         type: 'cross',
         crossStyle: {
-          color: '#999'
+          color: '#999',
+          width: 1,
+          type: 'dashed'
         }
       },
-      formatter: function (params) {
-        // console.log(params); // 当我们想要自定义提示框内容时，可以先将鼠标悬浮的数据打印出来，然后根据需求提取出来即可
-        let Params1 = params[0];
-        let Params2 = params[1];
-        let Params3 = params[2];
-        let Params4 = params[3];
-        let Params5 = params[4];
-        return Params1.name + '<br>' + Params1.seriesName + '：' + Params1.data + ' 分'
-                            + '<br>' + Params2.seriesName + '：' + Params2.data + ' 分'
-                            + '<br>' + Params3.seriesName + '：' + Params3.data + ' 分'
-                            + '<br>' + Params4.seriesName + '：' + Params4.data + ' 分'
-                            + '<br>' + Params5.seriesName + '：' + Params5.data + ' 分';
+      backgroundColor: 'rgba(255,255,255,0.95)',
+      borderColor: '#ddd',
+      borderWidth: 1,
+      padding: [10, 15],
+      textStyle: {
+        color: '#333'
+      },
+      extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.1);',
+      formatter: function(params) {
+        let result = params[0].axisValue + '<br>';
+        params.forEach(item => {
+          let marker = item.seriesType === 'bar'
+            ? '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:' + item.color + '"></span>'
+            : '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:2px;background-color:' + item.color + '"></span>';
+          result += marker + item.seriesName + ': ' + item.data + '分<br>';
+        });
+        return result;
       }
     },
     legend: {
-      top: '9%', // 设置图例的垂直位置
-      data: ['分数线总分', '外语', '政治','专业课1','专业课2','外语折线', '政治折线','专业课1折线','专业课2折线']
-    },
-    xAxis: [
-      {
-        type: 'category',
-        data: ['2020年', '2021年', '2022年', '2023年'],
-        axisPointer: {
-          type: 'shadow'
-        }
+      top: 55,
+      data: ['分数线总分', '外语', '政治', '专业课1', '专业课2', '外语折线', '政治折线', '专业课1折线', '专业课2折线'],
+      itemWidth: 12,
+      itemHeight: 12,
+      textStyle: {
+        fontSize: 12
       }
-    ],
+    },
+    xAxis: {
+      type: 'category',
+      data: ['2020年', '2021年', '2022年', '2023年'],
+      axisLine: {
+        lineStyle: {
+          color: '#ccc'
+        }
+      },
+      axisTick: {
+        alignWithLabel: true
+      },
+      axisLabel: {
+        color: '#666'
+      }
+    },
     yAxis: [
       {
         type: 'value',
-        name: '分数线总分',
+        name: '总分',
         min: 0,
         max: 400,
         interval: 100,
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#ccc'
+          }
+        },
         axisLabel: {
-          formatter: '{value} 分'
+          formatter: '{value}分',
+          color: '#666'
+        },
+        splitLine: {
+          lineStyle: {
+            type: 'dashed',
+            color: '#eee'
+          }
         }
       },
       {
@@ -121,137 +178,170 @@
         min: 30,
         max: 150,
         interval: 50,
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#ccc'
+          }
+        },
         axisLabel: {
-          formatter: '{value} 分'
+          formatter: '{value}分',
+          color: '#666'
+        },
+        splitLine: {
+          show: false
         }
       }
     ],
+    color: colorPalette,
     series: [
       {
         name: '分数线总分',
         type: 'bar',
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
+        barWidth: 20,
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0]
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.3)'
           }
         },
-        data: [
-          // 20,30,40,50
-
-        ]
+        data: []
       },
       {
         name: '外语',
         type: 'bar',
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
+        barWidth: 20,
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0]
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.3)'
           }
         },
-        data: [
-          // 20,30,40,50
-
-        ]
+        data: []
       },
       {
         name: '政治',
         type: 'bar',
-        // yAxisIndex: 1,
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
+        barWidth: 20,
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0]
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.3)'
           }
         },
-        data: [
-          // 2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2
-        ]
+        data: []
       },
       {
         name: '专业课1',
         type: 'bar',
-        // yAxisIndex: 1,
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
+        barWidth: 20,
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0]
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.3)'
           }
         },
-        data: [
-          // 2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2
-        ]
+        data: []
       },
       {
         name: '专业课2',
         type: 'bar',
-        // yAxisIndex: 1,
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
+        barWidth: 20,
+        itemStyle: {
+          borderRadius: [4, 4, 0, 0]
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.3)'
           }
         },
-        data: [
-          // 2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2
-        ]
+        data: []
       },
       {
         name: '外语折线',
         type: 'line',
         yAxisIndex: 1,
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
-          }
+        symbol: 'circle',
+        symbolSize: 8,
+        lineStyle: {
+          width: 3
         },
-        data: [
-          // 2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
-        ]
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: '#fff'
+        },
+        data: []
       },
       {
         name: '政治折线',
         type: 'line',
         yAxisIndex: 1,
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
-          }
+        symbol: 'circle',
+        symbolSize: 8,
+        lineStyle: {
+          width: 3
         },
-        data: [
-          // 2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2
-        ]
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: '#fff'
+        },
+        data: []
       },
       {
         name: '专业课1折线',
         type: 'line',
         yAxisIndex: 1,
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
-          }
+        symbol: 'circle',
+        symbolSize: 8,
+        lineStyle: {
+          width: 3
         },
-        data: [
-          // 2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2
-        ]
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: '#fff'
+        },
+        data: []
       },
       {
         name: '专业课2折线',
         type: 'line',
         yAxisIndex: 1,
-        tooltip: {
-          valueFormatter: function (value) {
-            return value + ' 分';
-          }
+        symbol: 'circle',
+        symbolSize: 8,
+        lineStyle: {
+          width: 3
         },
-        data: [
-          // 2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2
-        ]
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: '#fff'
+        },
+        data: []
       }
     ]
   };
 
-
-  // let chart = echarts.init(document.getElementById(data2020));
-  // chart.clear();
-  // option && myChart.setOption(option);
-
+  // 窗口大小变化时自适应
+  window.addEventListener('resize', function() {
+    myChart.resize();
+  });
 </script>
 </body>
 </html>

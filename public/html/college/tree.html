@@ -2,17 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>高校分数线可视化树状图</title>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', Arial, sans-serif;
+      margin: 0;
+      height: 450px;
+      width: 90%;
+      padding-left: 5%;
+    }
+    .container {
+      margin: 0 auto;
+    }
+    #tree {
+      height: 450px;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+    .chart-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    //@media (max-width: 768px) {
+    //  #tree {
+    //    height: 500px;
+    //    padding: ;
+    //  }
+    //}
+  </style>
   <script src="../../js/echarts.js"></script>
 </head>
 <body>
-<!--历年高校分数线树状图-->
-<div id="tree" style="width:1500px;height: 500px"></div>
+<div class="container">
+  <div class="chart-header">
+  </div>
+  <div id="tree"></div>
+</div>
+
 <script>
   var chartDom = document.getElementById('tree');
   var myChart = echarts.init(chartDom);
   var option;
-  var area=null;
+  var area = null;
 
   const data = {
     name: '中国',
@@ -1261,9 +1295,11 @@
       },
       {
         name: '西南',
+        // collapsed: false,
         children: [
           {
             name: '四川',
+            // collapsed: false,
             children: [
               {
                 name: '2020年',
@@ -1838,20 +1874,54 @@
       },
     ]
   };
+
+  // 颜色映射函数
+  function getNodeColor(nodeName) {
+    if (nodeName === '中国') return '#73c0de';
+    if (nodeName.endsWith('年')) return '#fac858';
+    if (['东北','华北','西北','华东','西南','华南','华中'].includes(nodeName)) return '#5470c6';
+    if ([
+      '黑龙江','吉林','辽宁','北京','天津','山西','河北','内蒙古',
+      '陕西','甘肃','青海','宁夏','新疆','上海','江苏','浙江','安徽',
+      '福建','江西','山东','四川','贵州','云南','重庆','西藏','广东',
+      '广西','海南','河南','湖北','湖南'
+    ].includes(nodeName)) return '#91cc75';
+    return '#ee6666';
+  }
+
   option = {
     title: {
-      text: '历年高校分数线树状图',
+      text: '全国高校历年分数线',
+      subtext: '数据来源：各高校公开数据',
       textAlign: 'center',
       left: '50%',
       top: '10px',
       textStyle: {
-        fontSize: 20,
-        fontWeight: 'bold'
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#2c3e50'
+      },
+      subtextStyle: {
+        fontSize: 12,
+        color: '#7f8c8d'
       }
     },
     tooltip: {
       trigger: 'item',
-      triggerOn: 'mousemove'
+      triggerOn: 'mousemove',
+      formatter: function(params) {
+        if (params.data.value !== undefined) {
+          return `${params.name}<br/>分数线: ${params.data.value}分`;
+        }
+        return params.name;
+      },
+      backgroundColor: 'rgba(255,255,255,0.9)',
+      borderColor: '#ddd',
+      borderWidth: 1,
+      padding: 10,
+      textStyle: {
+        color: '#333'
+      }
     },
     series: [
       {
@@ -1859,57 +1929,114 @@
         id: 0,
         name: 'tree1',
         data: [data],
-        top: '10%',
-        left: '8%',
-        bottom: '22%',
-        right: '20%',
-        symbolSize: 7,
-        edgeShape: 'polyline',
+        top: '15%',
+        left: '10%',
+        bottom: '10%',
+        right: '10%',
+        symbolSize: 10,
+        edgeShape: 'curve',
         edgeForkPosition: '63%',
         initialTreeDepth: 1,
         lineStyle: {
-          width: 2
+          width: 2,
+          color: '#ddd',
+          curveness: 0.2
         },
         label: {
-          backgroundColor: '#fff',
           position: 'left',
           verticalAlign: 'middle',
-          align: 'right'
+          align: 'right',
+          fontSize: 12,
+          color: '#333',
+          fontWeight: 'normal',
+          formatter: function(params) {
+            return params.name;
+          },
+          rich: {
+            region: {
+              color: '#5470c6',
+              fontWeight: 'bold'
+            },
+            province: {
+              color: '#91cc75',
+              fontWeight: 'bold'
+            },
+            year: {
+              color: '#fac858'
+            },
+            school: {
+              color: '#ee6666'
+            }
+          }
         },
         leaves: {
           label: {
             position: 'right',
             verticalAlign: 'middle',
-            align: 'left'
+            align: 'left',
+            fontSize: 11
           }
         },
         emphasis: {
-          focus: 'descendant'
+          focus: 'descendant',
+          itemStyle: {
+            borderColor: '#000',
+            borderWidth: 2
+          },
+          lineStyle: {
+            width: 3,
+            color: '#999'
+          }
         },
         expandAndCollapse: true,
         animationDuration: 550,
-        animationDurationUpdate: 750
+        animationDurationUpdate: 750,
+        itemStyle: {
+          color: function(params) {
+            return getNodeColor(params.name);
+          },
+          borderColor: '#fff',
+          borderWidth: 1.5,
+          shadowBlur: 5,
+          shadowColor: 'rgba(0,0,0,0.1)'
+        }
       }
-    ]
-  };
-  myChart.on('click', function (params) {
-    area = params.name
-    if((area=='东北')||(area=='华北')||(area=='西北')||(area=='华东')||(area=='西南')||(area=='华南')||(area=='华中'))
-    parent.getFromIframe1(area)
-    else if((area=='黑龙江')||(area=='吉林')||(area=='辽宁')
-    ||(area=='北京')||(area=='天津')||(area=='山西')||(area=='河北')
-    ||(area=='内蒙古')||(area=='陕西')||(area=='甘肃')||(area=='青海')||(area=='宁夏')
-    ||(area=='新疆')||(area=='上海')||(area=='江苏')||(area=='浙江')||(area=='安徽')
-    ||(area=='福建')||(area=='江西')||(area=='山东')||(area=='四川')||(area=='贵州')
-    ||(area=='云南')||(area=='重庆')||(area=='西藏')||(area=='广东')||(area=='广西')
-    ||(area=='海南')||(area=='河南')||(area=='湖北')||(area=='湖南')){
-      parent.getFromIframe2(area)
+    ],
+    toolbox: {
+      show: true,
+      feature: {
+        saveAsImage: {
+          title: '保存为图片',
+          pixelRatio: 2
+        },
+        restore: {
+          title: '重置视图'
+        }
+      },
+      right: 20,
+      top: 10
     }
-    // console.log(city);
-    // location.href = 'http://localhost:81/speciality/?string=' + JSON.stringify(city)
+  };
+  // 点击事件处理
+  myChart.on('click', function(params) {
+    area = params.name;
+    if (['东北','华北','西北','华东','西南','华南','华中'].includes(area)) {
+      parent.getFromIframe1(area);
+    } else if ([
+      '黑龙江','吉林','辽宁','北京','天津','山西','河北','内蒙古',
+      '陕西','甘肃','青海','宁夏','新疆','上海','江苏','浙江','安徽',
+      '福建','江西','山东','四川','贵州','云南','重庆','西藏','广东',
+      '广西','海南','河南','湖北','湖南'
+    ].includes(area)) {
+      parent.getFromIframe2(area);
+    }
   });
-  option && myChart.setOption(option);
+  // 响应式调整
+  window.addEventListener('resize', function() {
+    myChart.resize();
+  });
 
+  option && myChart.setOption(option);
 </script>
 </body>
 </html>

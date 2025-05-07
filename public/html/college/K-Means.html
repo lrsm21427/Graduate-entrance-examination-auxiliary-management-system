@@ -3,13 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', Arial, sans-serif;
+      width: 80%;
+      margin: 0;
+      padding-left: 10%;
+    }
+    #K-means {
+      height: 500px;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+  </style>
   <script src="../../js/echarts.js"></script>
   <script src='../../js/ecStat.js'></script>
 </head>
 <body>
 
-<div id="K-means" style="width:600px;height: 500px"></div>
-<div>注：高校聚类图横坐标x受类型、本科或专科，是否985，是否双一流以及所属机构影响。<br>纵坐标y受公办或民办，是否211以及所在城市影响。</div>
+<div id="K-means"></div>
+<!--<div>注：高校聚类图横坐标x受类型、本科或专科，是否985，是否双一流以及所属机构影响。<br>纵坐标y受公办或民办，是否211以及所在城市影响。</div>-->
 
 <script>
   var chartDom = document.getElementById('K-means');
