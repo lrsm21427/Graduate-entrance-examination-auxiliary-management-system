@@ -146,9 +146,16 @@
             <span class="label">隶属:</span>
             <span>{{ school.subordinate }}</span>
           </div>
-          <div class="info-item">
+          <div class="info-item address-item">
             <span class="label">地址:</span>
-            <span class="address">{{ school.address }}</span>
+            <el-tooltip
+              effect="dark"
+              :content="school.address"
+              placement="top"
+              v-if="school.address && school.address.length > 30">
+              <span class="address">{{ school.address | truncate(30) }}</span>
+            </el-tooltip>
+            <span v-else class="address">{{ school.address }}</span>
           </div>
         </div>
 
@@ -384,8 +391,10 @@ export default {
 }
 
 .school-cards-container {
+  padding-top: 10px;
   overflow-y: auto;
-  height: 800px;
+  min-height: calc(100vh - 250px);
+  max-height: none;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
@@ -402,6 +411,9 @@ export default {
 }
 
 .school-card {
+  height: 320px;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -438,14 +450,32 @@ export default {
 }
 
 .card-body {
-  padding: 15px;
+  flex: 1;
+  overflow: hidden; /* 防止内容溢出 */
+  padding-bottom: 0;
 }
 
 .info-item {
+  padding-left: 10px;
   display: flex;
   margin-bottom: 10px;
   font-size: 14px;
   line-height: 1.5;
+}
+
+.address-item {
+  height: 72px;
+  min-height: 60px; /* 固定高度容纳3行文本 */
+}
+
+.address {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 限制显示行数 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4; /* 调整行高 */
+  word-break: break-all;
 }
 
 .info-item:last-child {
@@ -469,11 +499,5 @@ export default {
   display: flex;
   justify-content: flex-end;
   background-color: #fafafa;
-}
-
-@media (max-width: 768px) {
-  .school-cards-container {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

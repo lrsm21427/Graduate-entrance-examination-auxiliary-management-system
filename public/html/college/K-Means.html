@@ -11,30 +11,27 @@
       padding-left: 10%;
     }
     #K-means {
-      height: 500px;
       margin: 0 auto;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       background: white;
       transition: all 0.3s ease;
     }
+    #K-means:hover {
+       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+     }
   </style>
   <script src="../../js/echarts.js"></script>
   <script src='../../js/ecStat.js'></script>
 </head>
 <body>
-
-<div id="K-means"></div>
-<!--<div>注：高校聚类图横坐标x受类型、本科或专科，是否985，是否双一流以及所属机构影响。<br>纵坐标y受公办或民办，是否211以及所在城市影响。</div>-->
-
+<div id="K-means" style="width:100%;height: 500px;"></div>
 <script>
   var chartDom = document.getElementById('K-means');
   var myChart = echarts.init(chartDom);
   var option
   echarts.registerTransform(ecStat.transform.clustering);
   let area='某地区'
-  // let data=[[]]
-  //为了防止我没法及时拿到要处理的数据，我就每两秒获取一次数据，做一个循环查询
   setTimeout(function () {
     var num = 0;
     var handler = setInterval(function () {

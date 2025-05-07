@@ -48,25 +48,64 @@
     titleCity = JSON.parse(`${value5}`) + '省';
     titleSpeciality = JSON.parse(`${value6}`) + '历年分数线分析';
 
-    data2020 = arr2020.split(',');
-    data2021 = arr2021.split(',');
-    data2022 = arr2022.split(',');
-    data2023 = arr2023.split(',');
+    function linearRegression(xs, ys) {
+      var n = xs.length;
+      var sumX = xs.reduce((a, b) => a + b, 0);
+      var sumY = ys.reduce((a, b) => a + b, 0);
+      var sumXY = xs.reduce((sum, x, i) => sum + x * ys[i], 0);
+      var sumXX = xs.reduce((sum, x) => sum + x * x, 0);
 
-    for(var i = 0; i < 5; i++) {
-      option.series[i].data[0] = Number(data2020[i]);
-      option.series[i].data[1] = Number(data2021[i]);
-      option.series[i].data[2] = Number(data2022[i]);
-      option.series[i].data[3] = Number(data2023[i]);
+      var k = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+      var b = (sumY - k * sumX) / n;
+
+      return (x) => k * x + b;
     }
 
-    option.series[5].data = option.series[1].data;
-    option.series[6].data = option.series[2].data;
-    option.series[7].data = option.series[3].data;
-    option.series[8].data = option.series[4].data;
+    data2020 = arr2020.split(',').map(Number);
+    data2021 = arr2021.split(',').map(Number);
+    data2022 = arr2022.split(',').map(Number);
+    data2023 = arr2023.split(',').map(Number);
+
+    var years = [2020, 2021, 2022, 2023];
+    var predict2024 = [];
+
+    // 对每一科做预测
+    for (var i = 0; i < 5; i++) {
+      var ys = [data2020[i], data2021[i], data2022[i], data2023[i]];
+      var predictFn = linearRegression(years, ys);
+      var y2024 = Math.round(predictFn(2024));
+      predict2024.push(y2024);
+    }
+
+    // 更新图表数据
+    option.xAxis.data = ['2020年', '2021年', '2022年', '2023年', '2024年（预测）'];
+
+    // 更新系列数据
+    for (var i = 0; i < 5; i++) {
+      option.series[i].data = [
+        data2020[i],
+        data2021[i],
+        data2022[i],
+        data2023[i],
+        predict2024[i]
+      ];
+    }
+
+    // 更新折线图数据
+    for (var i = 5; i < 9; i++) {
+      option.series[i].data = [
+        data2020[i-4],
+        data2021[i-4],
+        data2022[i-4],
+        data2023[i-4],
+        predict2024[i-4]
+      ];
+    }
 
     option.title.text = titleCity + titleSpeciality;
-    option && myChart.setOption(option, true);
+
+    myChart.clear();
+    myChart.setOption(option, true);
   }
 
   var titleSpeciality = '某专业历年分数线分析';
@@ -116,10 +155,12 @@
       formatter: function(params) {
         let result = params[0].axisValue + '<br>';
         params.forEach(item => {
-          let marker = item.seriesType === 'bar'
-            ? '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:' + item.color + '"></span>'
-            : '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:2px;background-color:' + item.color + '"></span>';
-          result += marker + item.seriesName + ': ' + item.data + '分<br>';
+          const isPredicted = item.axisValue.includes('预测');
+          const marker = item.seriesType === 'bar'
+            ? '<span style="..."></span>'
+            : '<span style="..."></span>';
+          result += marker + item.seriesName + ': ' + item.data + '分' +
+            (isPredicted ? ' <i style="color:red">(预测值)</i>' : '') + '<br>';
         });
         return result;
       }
@@ -200,7 +241,10 @@
         type: 'bar',
         barWidth: 20,
         itemStyle: {
-          borderRadius: [4, 4, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[0];
+          }
         },
         emphasis: {
           itemStyle: {
@@ -216,7 +260,10 @@
         type: 'bar',
         barWidth: 20,
         itemStyle: {
-          borderRadius: [4, 4, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[1];
+          }
         },
         emphasis: {
           itemStyle: {
@@ -232,7 +279,10 @@
         type: 'bar',
         barWidth: 20,
         itemStyle: {
-          borderRadius: [4, 4, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[2];
+          }
         },
         emphasis: {
           itemStyle: {
@@ -248,7 +298,10 @@
         type: 'bar',
         barWidth: 20,
         itemStyle: {
-          borderRadius: [4, 4, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[3];
+          }
         },
         emphasis: {
           itemStyle: {
@@ -264,7 +317,10 @@
         type: 'bar',
         barWidth: 20,
         itemStyle: {
-          borderRadius: [4, 4, 0, 0]
+          borderRadius: [4, 4, 0, 0],
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[4];
+          }
         },
         emphasis: {
           itemStyle: {
@@ -286,7 +342,10 @@
         },
         itemStyle: {
           borderWidth: 2,
-          borderColor: '#fff'
+          borderColor: '#fff',
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[5];
+          }
         },
         data: []
       },
@@ -301,7 +360,10 @@
         },
         itemStyle: {
           borderWidth: 2,
-          borderColor: '#fff'
+          borderColor: '#fff',
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[6];
+          }
         },
         data: []
       },
@@ -316,7 +378,10 @@
         },
         itemStyle: {
           borderWidth: 2,
-          borderColor: '#fff'
+          borderColor: '#fff',
+          color: function(params) {
+            return params.dataIndex === 4 ? '#c0d9d9' : colorPalette[7];
+          }
         },
         data: []
       },
@@ -331,11 +396,15 @@
         },
         itemStyle: {
           borderWidth: 2,
-          borderColor: '#fff'
+          borderColor: '#fff',
+          color: function(params) {
+            return params.dataIndex === 4 ? '#FF9F7F' : colorPalette[8];
+          }
         },
         data: []
       }
     ]
+
   };
 
   // 窗口大小变化时自适应

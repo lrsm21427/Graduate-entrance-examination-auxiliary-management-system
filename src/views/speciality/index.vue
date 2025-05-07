@@ -205,16 +205,6 @@ export default {
       );
       //一种向子iFrame传参方式，调用iframe的methods达到传参的目的
     },
-    //向parallel.html文件传参parallelIframe
-    // sentToIframe_parallel() {
-    //   let childFrameObj1 = document.getElementById("parallelIframe");
-    //   // console.log("childFrameObj", childFrameObj);
-    //   // console.log(this.city,this.queryParams.select_speciality)
-    //   childFrameObj1.contentWindow.getMessageFromParent(
-    //
-    //   ); //一种向子iFrame传参方式，调用iframe的methods达到传参的目的
-    // },
-    /** 搜索按钮操作 */
     handleQuery() {
       this.queryParams.pageNum = 1;
       this.getMajorName();

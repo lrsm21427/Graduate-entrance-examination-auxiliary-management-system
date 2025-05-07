@@ -1,9 +1,9 @@
 <template>
-  <div class="main" style="background-color: #f5f7fa;display: flex;flex-direction: column;" >
-    <div style="width: 100%;height: 600px;">
+  <div class="main" style="display: flex;flex-direction: column;" >
+    <div>
       <iframe id="treeIframe" src="../html/college/tree.html" scrolling="auto" frameborder="0" style="width: 100%;height: 630px;"></iframe>
        </div>
-    <div style="width: 100%;height: 600px;">
+    <div>
       <iframe id="parallelIframe2" src="../html/college/parallel2.html" scrolling="auto" frameborder="0" style="width: 50%;height: 630px"></iframe>
       <iframe id="K-MeansIframe" src="../html/college/K-Means.html" scrolling="auto" frameborder="0" style="width: 50%;height: 630px"></iframe>
     </div>

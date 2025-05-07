@@ -33,9 +33,9 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="最低总分" prop="scoreTotal">
+      <el-form-item label="最低总分" prop="scoreMin">
         <el-input
-          v-model="queryParams.scoreTotal"
+          v-model="queryParams.scoreMin"
           placeholder="请输入总分"
           clearable
           @keyup.enter.native="handleQuery"
@@ -223,6 +223,7 @@
 
 <script>
 import { listExam, getExam, delExam, addExam, updateExam } from "@/api/recommend/exam";
+import {listExamAry} from "@/api/api/recommend/exam";
 
 export default {
   name: "Exam",
@@ -255,6 +256,9 @@ export default {
         departmentName: null,
         majorName: null,
         scoreTotal: null,
+        scoreMin: null,
+        scoreMax: null,
+        scoreRange: 20
       },
       // 表单参数
       form: {},
@@ -295,6 +299,8 @@ export default {
         majorLink: null,
         majorName: null,
         scoreTotal: null,
+        scoreMin: null,
+        scoreMax: null,
         scorePolitics: null,
         scoreForeignLanguage: null,
         scoreSpecialized1: null,
@@ -305,11 +311,34 @@ export default {
     /** 搜索按钮操作 */
     handleQuery() {
       this.queryParams.pageNum = 1;
+      // 处理分数范围查询
+      if (this.queryParams.scoreMin) {
+        // 如果设置了最低分数，则计算最大分数
+        this.queryParams.scoreTotal = Number(this.queryParams.scoreMin);
+        this.queryParams.scoreMax =
+          Number(this.queryParams.scoreMin) + Number(this.queryParams.scoreRange || 20);
+      } else {
+        this.queryParams.scoreTotal = null;
+        this.queryParams.scoreMax = null;
+      }
       this.getList();
     },
+
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm("queryForm");
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 20,
+        year: null,
+        schoolName: null,
+        departmentName: null,
+        majorName: null,
+        scoreTotal: null,
+        scoreMin: null,
+        scoreMax: null,
+        scoreRange: 20
+      };
+      this.$refs.queryForm.resetFields();
       this.handleQuery();
     },
     // 多选框选中数据
