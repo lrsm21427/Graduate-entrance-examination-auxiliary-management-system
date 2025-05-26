@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies and build
         run: |
           npm install
-          npm run build
+          npm run build:prod
           
       - name: Deploy to Server
         uses: appleboy/scp-action@v0.1.5
